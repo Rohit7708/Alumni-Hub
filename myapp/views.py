@@ -61,3 +61,7 @@ def postsignUp(request):
      except:
         return render(request,"signUp.html")
      return render(request,"login.html")
+
+def navbar(request):
+
+    return render(request,"navbar.html")
