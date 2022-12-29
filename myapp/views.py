@@ -1,5 +1,5 @@
 
-from logging import config
+
 from django.shortcuts import render,redirect
 import pyrebase
 
@@ -50,13 +50,17 @@ def signUp(request):
 def postsignUp(request):
      email = request.POST.get('email')
      passs = request.POST.get('password')
-    #     name = request.POST.get('name')
+     name = request.POST.get('name')
      try:
         # creating a user with the given email and password
+        print(name)
         user=authe.create_user_with_email_and_password(email,passs)
         uid = user['localId']
         print(user)
         print(uid)
+        data={"name":name,"status":"1"}
+        print(data)
+        database.child("user").child(uid).child("details").set(data)
         return redirect('login')
      except:
         return render(request,"signUp.html")
