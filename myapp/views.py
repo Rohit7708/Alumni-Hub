@@ -8,7 +8,7 @@ config = {
     'apiKey': "AIzaSyDVXhouxFLB3wvUrXzkYS0lasnppSijJjU",
     'authDomain': "myfirst-f209c.firebaseapp.com",
     'projectId': "myfirst-f209c",
-    'databaseURL': "noreply@myfirst-f209c.firebaseapp.com",
+    'databaseURL': "https://myfirst-f209c-default-rtdb.firebaseio.com/",
     'storageBucket': "myfirst-f209c.appspot.com",
     'messagingSenderId': "1083995112715",
     'appId': "1:1083995112715:web:4d8b25edd10e5d2a024e0e",
@@ -30,11 +30,13 @@ def postsignIn(request):
     try:
         # if there is no error then signin the user with given email and password
         user=authe.sign_in_with_email_and_password(email,pasw)
+        session_id=user['idToken']
+        request.session['uid']=str(session_id)
+        return redirect('navbar')
     except:
         message="Invalid Credentials!!Please ChecK your Data"
         return render(request,"Login.html",{"message":message})
-    session_id=user['idToken']
-    request.session['uid']=str(session_id)
+    
     return render(request,"Home.html",{"email":email})
  
 def logout(request):
@@ -60,7 +62,7 @@ def postsignUp(request):
         print(uid)
         data={"name":name,"status":"1"}
         print(data)
-        database.child("user").child(uid).child("details").set(data)
+        database.child("users").child(uid).child("details").set(data)
         return redirect('login')
      except:
         return render(request,"signUp.html")
