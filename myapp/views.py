@@ -30,7 +30,7 @@ def postsignIn(request):
     try:
         # if there is no error then signin the user with given email and password
         user=authe.sign_in_with_email_and_password(email,pasw)
-        session_id=user['idToken']
+        session_id=user['localId']
         request.session['uid']=str(session_id)
         return redirect('/navbar/{}'.format(session_id))
     except:
@@ -69,7 +69,14 @@ def postsignUp(request):
      return render(request,"login.html")
 
 def navbar(request,session_id):
-
+    print(session_id)
+    res= database.child("student").child(session_id).child("details").get()
+    a= res.val()
+    print(a)
+    
+    # username=result['name']
+    # print(username)
+    # context={'username':username}
     return render(request,"navbar.html")
 
 def alumni_login(request):
