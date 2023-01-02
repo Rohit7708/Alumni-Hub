@@ -32,7 +32,7 @@ def postsignIn(request):
         user=authe.sign_in_with_email_and_password(email,pasw)
         session_id=user['localId']
         request.session['uid']=str(session_id)
-        return redirect('/navbar/{}'.format(session_id))
+        return redirect('welcome')
     except:
         message="Invalid Credentials!!Please ChecK your Data"
         return render(request,"Login.html",{"message":message})
@@ -68,16 +68,24 @@ def postsignUp(request):
         return render(request,"signUp.html")
      return render(request,"login.html")
 
-def navbar(request,session_id):
-    print(session_id)
-    res= database.child("student").child(session_id).child("details").get()
-    a= res.val()
-    print(a)
-    
-    # username=result['name']
-    # print(username)
-    # context={'username':username}
+def navbar(request):
+
     return render(request,"navbar.html")
+
+def welcome(request):
+    
+    # res= database.child("student").child(session_id).child("details").get()
+    # a= res.val()
+    # name=a["name"]
+    # print(name)
+    
+   
+    # context={'name':name}
+
+    return render(request,"welcome_msg.html")
+
+def profile(request):
+    return render(request,'profile.html')
 
 def alumni_login(request):
 
