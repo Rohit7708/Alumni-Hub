@@ -1,5 +1,3 @@
-
-
 from django.shortcuts import render,redirect
 import pyrebase
 
@@ -32,7 +30,8 @@ def postsignIn(request):
         user=authe.sign_in_with_email_and_password(email,pasw)
         session_id=user['localId']
         request.session['uid']=str(session_id)
-        return redirect('welcome')
+        
+        return redirect('/welcome_msg/{}'.format(session_id))
     except:
         message="Invalid Credentials!!Please ChecK your Data"
         return render(request,"Login.html",{"message":message})
@@ -68,23 +67,32 @@ def postsignUp(request):
         return render(request,"signUp.html")
      return render(request,"login.html")
 
-def navbar(request):
 
-    return render(request,"navbar.html")
+def welcome(request,session_id):
 
-def welcome(request):
-    
+    res= database.child("student").child(session_id).child("details").get()
+    a= res.val()
+    name=a['name']
+    print(name)
+
+    context={'session_id':session_id,'name':name}
+
+    return render(request,"welcome_msg.html",context)
+
+def profile(request,session_id):
+    roll=request.POST.get('roll')
+    firstname=request.POST.get('firstname')
+    lastname=request.POST.get('lastname')
+    phone=request.POST.get('phone')
+
     # res= database.child("student").child(session_id).child("details").get()
     # a= res.val()
-    # name=a["name"]
-    # print(name)
-    
-   
-    # context={'name':name}
+    # a=a['localId']
 
-    return render(request,"welcome_msg.html")
+    data={'firstname':firstname,'roll':roll,'lastname':lastname,'phone':phone}
+    database.child("student").child(session_id).child("reports").set(data)
 
-def profile(request):
+
     return render(request,'profile.html')
 
 def alumni_login(request):
