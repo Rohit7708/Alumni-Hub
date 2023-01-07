@@ -63,14 +63,14 @@ and main content of the page -->
                             <span class="menu-collapsed">Alumni List</span>
                         </div>
                     </a>
-                    <a href="#" class="bg-dark list-group-item list-group-item-action">
+                    <a href="{% url 'news' session_id %}" class="bg-dark list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-envelope-o fa-fw mr-3"></span>
                             <span class="menu-collapsed">News & Events</span>
                         </div>
                     </a>
 
-                    <a href="#" class="bg-dark list-group-item list-group-item-action">
+                    <a href="{% url 'jobs' session_id %}" class="bg-dark list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-envelope-o fa-fw mr-3"></span>
                             <span class="menu-collapsed">Job Opportunities</span>

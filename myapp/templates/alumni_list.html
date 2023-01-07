@@ -22,10 +22,7 @@
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
     </script>
 </head>
-<style>
-  
 
-</style>
 <body>
   <!-- top navbar -->
   <nav class="navbar navbar-expand-lg
@@ -60,7 +57,7 @@ and main content of the page -->
           <!-- Separator with title -->
 
           <!-- /END Separator -->
-          <a href="{% url 'alumni_list' session_id %}" class="bg-dark list-group-item list-group-item-action">
+          <a href="#" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
               <span class="fa fa-calendar fa-fw mr-3"></span>
               <span class="menu-collapsed">Alumni List</span>
@@ -86,7 +83,7 @@ and main content of the page -->
               <span class="menu-collapsed">Messages</span>
             </div>
           </a>
-          <a href="{% url 'alumni_list' session_id %}" class="bg-dark list-group-item list-group-item-action">
+          <a href="{% url 'profile' session_id %}" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
               <span class="fa fa-envelope-o fa-fw mr-3"></span>
               <span class="menu-collapsed">Profile</span>
@@ -97,49 +94,50 @@ and main content of the page -->
         </ul><!-- List Group END-->
       </div><!-- sidebar-container END -->
 
+
+
       <!-- MAIN -->
       <div class="profile mx-auto">
         <div class="container pt-3">
-          <form action="" method="POST">
-            {% csrf_token %}
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="firstname">First Name</label>
-                <input type="text" class="form-control" name="firstname" placeholder="First Name">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="inputPassword4">Last Name</label>
-                <input type="text" class="form-control" name="lastname" placeholder="Last Name">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="batch">Batch</label>
-              <input type="text" class="form-control" name="batch" placeholder="year">
-            </div>
-            <div class="form-group">
-              <label for="rollnumber">Roll Number</label>
-              <input type="text" class="form-control" name="roll" placeholder="Roll Number">
-            </div>
-            <div class="form-group">
-              <label for="rollnumber">Official Email</label>
-              <input type="email" class="form-control" name="oemail" placeholder="official email">
-            </div>
-            <div class="form-group">
-              <label for="rollnumber">Personal Email</label>
-              <input type="email" class="form-control" name="pemail" placeholder="personal email">
-            </div>
-            <div class="
-            form-group">
-              <label for="tel">Phone</label>
-              <input type="tel" name="phone" class="form-control" name="phone" placeholder="Phone No" required>
-            </div>
-            <input type="submit" class="btn btn-primary" name="submit" id="">
+          <div class="container">
+            <form action="" method="POST">
+              {% csrf_token %}
+            <label for="">Enter the batch you want to search</label>
+            <input type="text" name="batch" id="">
 
-
+            <input type="submit" name="submit" id="" value="SEARCH" class="btn btn-success">
+            </form>
+          </div>
+        </div>
+            <br>
+            <br>
+            <br>
+              <table class="table">
+                
+                <tr>
+               <th>Roll No</th>
+               <th>First Name</th>
+               <th>Last Name</th>
+               <th>Action</th>
+               
+               </tr>
+               {% for j in final %}
+               <tr>
+                <td>{{j.roll}}</td>
+                <td>{{j.firstname}}</td>
+                <td>{{j.lastname}}</td>
+                <td><a href="{% url 'detail_card' session_id j.roll j.firstname j.lastname j.batch j.oemail j.pmeail j.phone %}" class="btn btn-warning">View more</a></td>
+               </tr>
+      
+               {% endfor %}
+              </table>
             
-          </form>
+      
+
+          </div>
         </div>
       </div>
+
 
 
 
