@@ -22,7 +22,10 @@
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
     </script>
 </head>
+<style>
+  
 
+</style>
 <body>
   <!-- top navbar -->
   <nav class="navbar navbar-expand-lg
@@ -57,23 +60,23 @@ and main content of the page -->
           <!-- Separator with title -->
 
           <!-- /END Separator -->
-          <a href="#{% url 'alumni_list' session_id %}" class="bg-dark list-group-item list-group-item-action">
+          <a href="" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
               <span class="fa fa-calendar fa-fw mr-3"></span>
-              <span class="menu-collapsed">Alumni List</span>
+              <span class="menu-collapsed">Students List</span>
             </div>
           </a>
-          <a href="{% url 'news' session_id %}" class="bg-dark list-group-item list-group-item-action">
+          <a href="{% url 'news_not' session_id %}" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
               <span class="fa fa-envelope-o fa-fw mr-3"></span>
               <span class="menu-collapsed">News & Events</span>
             </div>
           </a>
 
-          <a href="#" class="bg-dark list-group-item list-group-item-action">
+          <a href="{}% url 'alumni_job' session_id %" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
               <span class="fa fa-envelope-o fa-fw mr-3"></span>
-              <span class="menu-collapsed">Job Opportunities</span>
+              <span class="menu-collapsed">Push Job notifications</span>
             </div>
           </a>
 
@@ -83,16 +86,10 @@ and main content of the page -->
               <span class="menu-collapsed">Messages</span>
             </div>
           </a>
-          <a href="{% url 'profile' session_id %}" class="bg-dark list-group-item list-group-item-action">
+          <a href="" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
               <span class="fa fa-envelope-o fa-fw mr-3"></span>
               <span class="menu-collapsed">Profile</span>
-            </div>
-          </a>
-          <a href="{% url 'update_profile' session_id %}" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-envelope-o fa-fw mr-3"></span>
-              <span class="menu-collapsed">Update Profile</span>
             </div>
           </a>
 
@@ -100,17 +97,50 @@ and main content of the page -->
         </ul><!-- List Group END-->
       </div><!-- sidebar-container END -->
 
-
-
       <!-- MAIN -->
       <div class="profile mx-auto">
         <div class="container pt-3">
-          <div class="container">
-            <h3>Job Notifications</h3>
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="firstname">First Name</label>
+                <input type="text" class="form-control" name="firstname" placeholder="First Name">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Last Name</label>
+                <input type="text" class="form-control" name="lastname" placeholder="Last Name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="batch">Batch</label>
+              <input type="text" class="form-control" name="batch" placeholder="year">
+            </div>
+            <div class="form-group">
+              <label for="rollnumber">Roll Number</label>
+              <input type="text" class="form-control" name="roll" placeholder="Roll Number">
+            </div>
+            <div class="form-group">
+              <label for="rollnumber">Official Email</label>
+              <input type="email" class="form-control" name="oemail" placeholder="official email">
+            </div>
+            <div class="form-group">
+              <label for="rollnumber">Personal Email</label>
+              <input type="email" class="form-control" name="pemail" placeholder="personal email">
+            </div>
+            <div class="
+            form-group">
+              <label for="tel">Phone</label>
+              <input type="tel" name="phone" class="form-control" name="phone" placeholder="Phone No" required>
+            </div>
+            <input type="submit" class="btn btn-primary" name="submit" id="">
 
-          </div>
+
+            
+          </form>
         </div>
       </div>
+      
 
 
 
@@ -193,4 +223,5 @@ and main content of the page -->
   }
 </style>
 
+</html>
 </html>

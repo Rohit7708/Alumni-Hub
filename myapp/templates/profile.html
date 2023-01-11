@@ -86,10 +86,16 @@ and main content of the page -->
               <span class="menu-collapsed">Messages</span>
             </div>
           </a>
-          <a href="{% url 'alumni_list' session_id %}" class="bg-dark list-group-item list-group-item-action">
+          <a href="" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
               <span class="fa fa-envelope-o fa-fw mr-3"></span>
               <span class="menu-collapsed">Profile</span>
+            </div>
+          </a>
+          <a href="{% url 'update_profile' session_id %}" class="bg-dark list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-envelope-o fa-fw mr-3"></span>
+              <span class="menu-collapsed">Update Profile</span>
             </div>
           </a>
 

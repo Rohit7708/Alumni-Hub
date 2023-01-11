@@ -89,7 +89,7 @@ and main content of the page -->
                             <span class="menu-collapsed">Profile</span>
                         </div>
                     </a>
-                    <a href="{% url 'update_profile' session_id %}" class="bg-dark list-group-item list-group-item-action">
+                    <a href="" class="bg-dark list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-envelope-o fa-fw mr-3"></span>
                             <span class="menu-collapsed">Update Profile</span>
@@ -101,17 +101,49 @@ and main content of the page -->
             </div><!-- sidebar-container END -->
 
             <!-- MAIN -->
-            <div class="msg">
-                <div class="row">
-                    <div class="col">
-                        <div class="col-md">
-                            <div class="card card-body">
-                                <h4>Hi, {{name}}</h4>
-                            </div>
-                        </div>
+            <div class="profile mx-auto">
+                <div class="container pt-3">
+                  <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="firstname">First Name</label>
+                        <input type="text" class="form-control" name="firstname" value="{{details.firstname}}">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputPassword4">Last Name</label>
+                        <input type="text" class="form-control" name="lastname">
+                      </div>
                     </div>
+                    <div class="form-group">
+                      <label for="batch">Batch</label>
+                      <input type="text" class="form-control" name="batch">
+                    </div>
+                    <div class="form-group">
+                      <label for="rollnumber">Roll Number</label>
+                      <input type="text" class="form-control" name="roll">
+                    </div>
+                    <div class="form-group">
+                      <label for="rollnumber">Official Email</label>
+                      <input type="email" class="form-control" name="oemail">
+                    </div>
+                    <div class="form-group">
+                      <label for="rollnumber">Personal Email</label>
+                      <input type="email" class="form-control" name="pemail">
+                    </div>
+                    <div class="
+                    form-group">
+                      <label for="tel">Phone</label>
+                      <input type="tel" name="phone" class="form-control" name="phone" required>
+                    </div>
+                    <input type="submit" class="btn btn-primary" name="Update" id="">
+        
+        
+                    
+                  </form>
                 </div>
-            </div>
+              </div>
+            
 
 
 

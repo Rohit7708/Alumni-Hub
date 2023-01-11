@@ -22,6 +22,10 @@
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
     </script>
 </head>
+<style>
+
+
+</style>
 
 <body>
   <!-- top navbar -->
@@ -45,77 +49,35 @@ navbar-light bg-primary">
   <!-- This container contains the sidebar
 and main content of the page -->
   <!-- h-100 takes the full height of the body-->
-  <div class="container-fluid p-0">
-
-    <!-- Bootstrap row -->
-    <div class="row" id="body-row">
-      <!-- Sidebar -->
-      <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
-        <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
-        <!-- Bootstrap List Group -->
-        <ul class="list-group">
-          <!-- Separator with title -->
-
-          <!-- /END Separator -->
-          <a href="#{% url 'alumni_list' session_id %}" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-calendar fa-fw mr-3"></span>
-              <span class="menu-collapsed">Alumni List</span>
-            </div>
-          </a>
-          <a href="{% url 'news' session_id %}" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-envelope-o fa-fw mr-3"></span>
-              <span class="menu-collapsed">News & Events</span>
-            </div>
-          </a>
-
-          <a href="#" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-envelope-o fa-fw mr-3"></span>
-              <span class="menu-collapsed">Job Opportunities</span>
-            </div>
-          </a>
-
-          <a href="#" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-envelope-o fa-fw mr-3"></span>
-              <span class="menu-collapsed">Messages</span>
-            </div>
-          </a>
-          <a href="{% url 'profile' session_id %}" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-envelope-o fa-fw mr-3"></span>
-              <span class="menu-collapsed">Profile</span>
-            </div>
-          </a>
-          <a href="{% url 'update_profile' session_id %}" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-envelope-o fa-fw mr-3"></span>
-              <span class="menu-collapsed">Update Profile</span>
-            </div>
-          </a>
-
-
-        </ul><!-- List Group END-->
-      </div><!-- sidebar-container END -->
-
-
+  
 
       <!-- MAIN -->
-      <div class="profile mx-auto">
-        <div class="container pt-3">
-          <div class="container">
-            <h3>Job Notifications</h3>
+<br>
+<br>
+<br>
+<br>
+<div class="profile mx-auto">
+    <div class="container pt-3">
 
-          </div>
+      <div class="card text-center">
+        <div class="card-header">
+          Event Deatils
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Title: {{title}}</h5>
+          <p class="card-text">{{description}}</p>
+        </div>
+        <div class="card-footer text-muted">
+            </div><p> Attachment: {{att}}</p></div>
+          
         </div>
       </div>
+      
 
 
 
 
-    </div><!-- Main Col END -->
+  </div><!-- Main Col END -->
 
   </div><!-- body-row END -->
 
@@ -192,5 +154,7 @@ and main content of the page -->
     background-color: #132644 !important;
   }
 </style>
+
+</html>
 
 </html>

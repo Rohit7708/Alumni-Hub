@@ -89,6 +89,12 @@ and main content of the page -->
               <span class="menu-collapsed">Profile</span>
             </div>
           </a>
+          <a href="{% url 'update_profile' session_id %}" class="bg-dark list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-envelope-o fa-fw mr-3"></span>
+              <span class="menu-collapsed">Update Profile</span>
+            </div>
+          </a>
 
 
         </ul><!-- List Group END-->
@@ -104,6 +110,8 @@ and main content of the page -->
               {% csrf_token %}
             <label for="">Enter the batch you want to search</label>
             <input type="text" name="batch" id="">
+            
+
 
             <input type="submit" name="submit" id="" value="SEARCH" class="btn btn-success">
             </form>

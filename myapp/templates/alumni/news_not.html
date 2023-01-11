@@ -23,9 +23,10 @@
     </script>
 </head>
 <style>
-  
+
 
 </style>
+
 <body>
   <!-- top navbar -->
   <nav class="navbar navbar-expand-lg
@@ -94,16 +95,52 @@ and main content of the page -->
           </a>
 
 
-        </ul><!-- List Group END-->
-      </div><!-- sidebar-container END -->
+        </ul>
+      </div>
 
       <!-- MAIN -->
-      
+      <div class="profile mx-auto">
+        <div class="container pt-3">
+          
+          <h3>News and Events</h3>
+          <br>
+          <table class="table table-striped">
+            {% for i in not_list %}
+            <div class="card">
+              <div class="card-header">
+                Posted on: {{i.date}} Time: {{i.time}}
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Title: {{i.title}}</h5>
+                <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+                <a href="{% url 'notification_detail' i.description i.title i.attachment %}" class="btn btn-primary">View more</a>
+              </div>
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+        </table>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="profile">
+      <div class="container pt-6">
+        <div class="container">
+          <br>
+          <a class="btn btn-primary btn-lg float-right" href="{% url 'al_event_notify' session_id %}">Create</a>
+        </div>
+      </div>
+    </div>
 
 
 
 
-    </div><!-- Main Col END -->
+
+  </div><!-- Main Col END -->
 
   </div><!-- body-row END -->
 
@@ -182,4 +219,5 @@ and main content of the page -->
 </style>
 
 </html>
+
 </html>

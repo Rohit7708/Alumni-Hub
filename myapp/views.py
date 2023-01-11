@@ -1,7 +1,9 @@
-
-
 from django.shortcuts import render,redirect
+from datetime import datetime
+import uuid
 import pyrebase
+import smtplib
+from email.message import EmailMessage
 
 # Create your views here.
 config = {
@@ -92,23 +94,26 @@ def welcome(request,session_id):
     return render(request,"welcome_msg.html",context)
 
 def profile(request,session_id):
-    roll=request.POST.get('roll')
-    firstname=request.POST.get('firstname')
-    lastname=request.POST.get('lastname')
-    phone=request.POST.get('phone')
-    batch=request.POST.get('batch')
-    pemail=request.POST.get('pemail')
-    oemail=request.POST.get('oemail')
+    if request.method=="POST":
+        roll=request.POST.get('roll')
+        firstname=request.POST.get('firstname')
+        lastname=request.POST.get('lastname')
+        phone=request.POST.get('phone')
+        batch=request.POST.get('batch')
+        pemail=request.POST.get('pemail')
+        oemail=request.POST.get('oemail')
 
-    # res= database.child("users").child(session_id).child("details").get()
-    # a= res.val()
-    # a=a['localId']
 
-    data={'firstname':firstname,'roll':roll,'lastname':lastname,'phone':phone,'batch':batch,'pmeail':pemail,'oemail':oemail}
-    database.child("users").child(session_id).child("details").set(data)
+        data={'firstname':firstname,'roll':roll,'lastname':lastname,'phone':phone,'batch':batch,'pmeail':pemail,'oemail':oemail}
+        database.child("users").child(session_id).child("details").set(data)
 
     context={'session_id':session_id}
     return render(request,'profile.html',context)
+
+def update_profile(request,session_id):
+    result=database.child("users").child(session_id).child("details").get().val()
+    context={'session_id':session_id,'details':result}
+    return render(request,"update_profile.html",context)
 
 def alumnilist(request,session_id):
     final=[]
@@ -129,12 +134,69 @@ def alumnilist(request,session_id):
     return render(request,"alumni_list.html",context)
 
 def news(request,session_id):
+    not_list=[]
+    events = database.child("Student_event_notification").get().val()
+    if events is not None:
+        for i in events.keys():
+            if(events[i]['details']['notification_pushedby'] == "alumni"):
+                not_list.append(events[i]['details']) 
+        
+    else:
+        Message="No events"
+        print(Message)
 
-    context={'session_id':session_id}
+    not_list = sorted(not_list,key= lambda x : x["date"], reverse=True)
+
+    print(not_list)
+    
+
+
+    context={'session_id':session_id,'not_list':not_list}
     return render(request,"news.html",context)
 
-def jobs(request,session_id
-):
+def notification_detail_student(request,session_id,description,title,att):
+
+    context={'session_id':session_id,'description':description,'title':title,'att':att}
+    return render(request,"st_notification_detail.html",context)
+
+def create_notification(request,session_id):
+    mail_list=[]
+    if request.method=="POST":
+        title=request.POST.get('title')
+        des=request.POST.get('des')
+        att=request.POST.get('attachment')
+        print(att)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        from django.utils import timezone
+        today = timezone.now().timestamp()
+        notification_id = uuid.uuid4()
+
+        data={'title':title,'description':des,'attachment':att,'time':current_time,'date':today,'student_id':session_id,'notification_pushedby':"student"}
+        database.child("event_notification").child(notification_id).child("details").set(data)
+
+        result=database.child("users").get().val()
+        for i in result.keys():
+            if(result[i]['report']['role'] == "alumni"):
+                mail_list.append(result[i]['details'])      
+
+        for i in mail_list:
+            EMAIL_ADDRESS='alumnihub.123@gmail.com'
+            EMAIL_PASSWORD='veicbwofgzonpzih'
+            msg=EmailMessage()
+            msg['subject']='Event notification'
+            msg['form']=EMAIL_ADDRESS
+            msg['To']=i['pmeail']
+            msg.set_content('Event notification has been posted. Kindly check your AlumniHub !')
+
+            with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:
+                smtp.login(EMAIL_ADDRESS,EMAIL_PASSWORD)
+                smtp.send_message(msg)
+                print("msg sent")
+
+    return render(request,"st_event_notify.html")
+
+def jobs(request,session_id):
 
     context={'session_id':session_id}
     return render(request,"jobs.html",context)
@@ -159,9 +221,16 @@ def alumni_postsignin(request):
         user=authe.sign_in_with_email_and_password(email,pasw)
         session_id=user['localId']
         request.session['uid']=str(session_id)
-        
-        
-        return redirect('/alumni_mainpage/{}'.format(session_id))
+        res= database.child("users").child(session_id).child("report").get()
+        print(res)
+        value=res.val()
+        rol=value['role']
+        print(rol)
+        if rol=="alumni":
+            return redirect('/alumni_mainpage/{}'.format(session_id))
+        else:
+            message="your role is student. Please login with student login"
+            return render(request,"alumni.alumni/login.html",{"mess":message})
     except:
         message="Invalid Credentials!!Please ChecK your Data"
         return render(request,"alumni/alumni_login.html",{"message":message})
@@ -180,7 +249,7 @@ def alumni_postsignup(request):
         user=authe.create_user_with_email_and_password(email,passs)
         uid = user['localId']
         data={"name":name,"role":"alumni"}
-        database.child("users").child(uid).child("details").set(data)
+        database.child("users").child(uid).child("report").set(data)
         return redirect('alumni_login')
 
     except:
@@ -194,10 +263,81 @@ def alumni_mainpage(request,session_id):
     context={'session_id':session_id}
     return render(request,'alumni/alumni_mainpage.html',context)
 
+def alumni_profile(request,session_id):
+    roll=request.POST.get('roll')
+    firstname=request.POST.get('firstname')
+    lastname=request.POST.get('lastname')
+    phone=request.POST.get('phone')
+    batch=request.POST.get('batch')
+    pemail=request.POST.get('pemail')
+    oemail=request.POST.get('oemail')
+
+    data={'firstname':firstname,'roll':roll,'lastname':lastname,'phone':phone,'batch':batch,'pmeail':pemail,'oemail':oemail}
+    database.child("users").child(session_id).child("details").set(data)
+    context={'session_id':session_id}
+    return render(request,"alumni/alumni_profileset.html",context)
+
 def alumni_news(request,session_id):
+    not_list=[]
+    events = database.child("event_notification").get().val()
+    if events is not None:
+        for i in events.keys():
+            if(events[i]['details']['notification_pushedby'] == "student"):
+                not_list.append(events[i]['details']) 
+        
+    else:
+        message="No Events to Display"
+        print(message)
+
+    not_list = sorted(not_list,key= lambda x : x["date"], reverse=True)
+
+    print(not_list)
+    print(not_list)
+    context={'session_id':session_id,'not_list':not_list}
+    return render(request,"alumni/news_not.html",context)
+
+def notification_detail(request,description,title,att):
+    print(description)
+    print(title)
+    context={'description':description,'title':title,'att':att}
+    return render(request,"alumni/notification_detail.html",context)
+
+def al_event_notify(request,session_id):
+    mail_list=[]
+    if request.method=="POST":
+        title=request.POST.get('title')
+        des=request.POST.get('des')
+        att=request.POST.get('attachment')
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        today = datetime.today()
+        date = today.strftime("%B %d, %Y")
+        notification_id = uuid.uuid4()
+
+        data={'title':title,'description':des,'attachment':att,'time':current_time,'date':date,'student_id':session_id,'notification_pushedby':"alumni"}
+        database.child("Student_event_notification").child(notification_id).child("details").set(data)
+
+        result=database.child("users").get().val()
+        for i in result.keys():
+            if(result[i]['report']['role'] == "student"):
+                mail_list.append(result[i]['details'])      
+
+        for i in mail_list:
+            EMAIL_ADDRESS='alumnihub.123@gmail.com'
+            EMAIL_PASSWORD='veicbwofgzonpzih'
+            msg=EmailMessage()
+            msg['subject']='Event notification'
+            msg['form']=EMAIL_ADDRESS
+            msg['To']=i['pmeail']
+            msg.set_content('Event notification has been posted. Kindly check your AlumniHub !')
+
+            with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:
+                smtp.login(EMAIL_ADDRESS,EMAIL_PASSWORD)
+                smtp.send_message(msg)
+                print("msg sent")
 
     context={'session_id':session_id}
-    return render(request,"alumni/alumni_not.html",context)
+    return render(request,"alumni/al_event_notify.html",context)
 
 def alumni_job(request,session_id):
 

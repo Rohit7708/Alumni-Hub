@@ -47,16 +47,13 @@ and main content of the page -->
   <!-- h-100 takes the full height of the body-->
   <div class="container-fluid p-0">
 
-    <!-- Bootstrap row -->
+    
     <div class="row" id="body-row">
-      <!-- Sidebar -->
-      <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
-        <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
-        <!-- Bootstrap List Group -->
+      
+      <div id="sidebar-container" class="sidebar-expanded">
+        
         <ul class="list-group">
-          <!-- Separator with title -->
-
-          <!-- /END Separator -->
+          
           <a href="{% url 'alumni_list' session_id %}" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
               <span class="fa fa-calendar fa-fw mr-3"></span>
@@ -89,10 +86,17 @@ and main content of the page -->
               <span class="menu-collapsed">Profile</span>
             </div>
           </a>
+          <a href="{% url 'update_profile' session_id %}" class="bg-dark list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-envelope-o fa-fw mr-3"></span>
+              <span class="menu-collapsed">Update Profile</span>
+            </div>
+          </a>
 
 
-        </ul><!-- List Group END-->
-      </div><!-- sidebar-container END -->
+        </ul>
+      </div>
+      
 
 
 
@@ -101,6 +105,25 @@ and main content of the page -->
         <div class="container pt-3">
           <div class="container">
             <h3>News and Events</h3>
+            <br>
+
+          
+            <table>
+              {% for i in not_list %}
+              <div class="card">
+                <div class="card-header">
+                  Posted on: {{i.date}} Time: {{i.time}}
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Title: {{i.title}}</h5>
+              
+                  <a href="{% url 'st_notification_detail' session_id i.description i.title i.attachment %}" class="btn btn-primary">View more</a>
+                </div>
+              </div>
+          </div>
+          <br>
+          {% endfor %}
+          </table>
             
 
                   
@@ -112,7 +135,7 @@ and main content of the page -->
         <div class="container pt-3">
           <div class="container">
             <br>
-      <a class="btn btn-primary btn-lg float-right" href="">Create</a>
+      <a class="btn btn-primary btn-lg float-right" href="{% url 'st_event_notify' session_id %}">Create</a>
       </div>
       </div>
       </div>
