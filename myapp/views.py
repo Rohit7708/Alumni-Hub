@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from datetime import datetime
+from django.utils import timezone
 import uuid
 import pyrebase
 import smtplib
@@ -168,7 +169,7 @@ def create_notification(request,session_id):
         print(att)
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
-        from django.utils import timezone
+        
         today = timezone.now().timestamp()
         notification_id = uuid.uuid4()
 
