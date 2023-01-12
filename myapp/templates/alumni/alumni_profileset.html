@@ -22,10 +22,24 @@
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
     </script>
 </head>
-<style>
-  
+<script type="text/javascript">
+  window.onload = function () {
+    //Reference the DropDownList.
+    var ddlYears = document.getElementById("ddlYears");
 
-</style>
+    //Determine the Current Year.
+    var currentYear = (new Date()).getFullYear();
+
+    //Loop and add the Year values to DropDownList.
+    for (var i = 1950; i <= currentYear; i++) {
+      var option = document.createElement("OPTION");
+      option.innerHTML = i;
+      option.value = i;
+      ddlYears.appendChild(option);
+    }
+  };
+</script>
+
 <body>
   <!-- top navbar -->
   <nav class="navbar navbar-expand-lg
@@ -73,7 +87,7 @@ and main content of the page -->
             </div>
           </a>
 
-          <a href="{}% url 'alumni_job' session_id %" class="bg-dark list-group-item list-group-item-action">
+          <a href="{% url 'alumni_job' session_id %}" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
               <span class="fa fa-envelope-o fa-fw mr-3"></span>
               <span class="menu-collapsed">Push Job notifications</span>
@@ -104,42 +118,60 @@ and main content of the page -->
             {% csrf_token %}
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label for="firstname">First Name</label>
+                <label for="firstname"><b>First Name</b></label>
                 <input type="text" class="form-control" name="firstname" placeholder="First Name">
               </div>
               <div class="form-group col-md-6">
-                <label for="inputPassword4">Last Name</label>
+                <label for="inputPassword4"><b>Last Name</b></label>
                 <input type="text" class="form-control" name="lastname" placeholder="Last Name">
               </div>
             </div>
             <div class="form-group">
-              <label for="batch">Batch</label>
-              <input type="text" class="form-control" name="batch" placeholder="year">
+              <label for="rollnumber"><b>Roll Number</b></label>
+              <input type="text" class="form-control" name="roll_number" placeholder="Roll Number">
             </div>
             <div class="form-group">
-              <label for="rollnumber">Roll Number</label>
-              <input type="text" class="form-control" name="roll" placeholder="Roll Number">
+              <label for="batch"><b>Batch</b></label>
+              <select name="batch" style="width: 300px;" id="ddlYears"></select>
+            </div>
+            
+            
+            <div class="form-group">
+              <label for="department">Department</label>
+              <select name="department" style="width: 500px;" id="dept">
+                <option value="None"><b>--Select your department--</b></option>
+                <option value="MCA">MCA</option>
+                <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+                <option value="Information Technology">Information Technology</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                <option value="ECE">ECE</option>
+                <option value="EEE">EEE</option>
+              </select>
             </div>
             <div class="form-group">
-              <label for="rollnumber">Official Email</label>
+              <label for="official_email"><b>Official Email</b></label>
               <input type="email" class="form-control" name="oemail" placeholder="official email">
             </div>
             <div class="form-group">
-              <label for="rollnumber">Personal Email</label>
+              <label for="rollnumber"><b>Personal Email</b></label>
               <input type="email" class="form-control" name="pemail" placeholder="personal email">
             </div>
-            <div class="
-            form-group">
-              <label for="tel">Phone</label>
+            <div class="form-group">
+              <label for="tel"><b>Phone</b></label>
               <input type="tel" name="phone" class="form-control" name="phone" placeholder="Phone No" required>
+            </div>
+            <div class="form-group">
+              <label for="rollnumber"><b>Working At (Mention as NA if not applicable)</b></label>
+              <input type="text" class="form-control" name="roll" placeholder="Woriking At">
             </div>
             <input type="submit" class="btn btn-primary" name="submit" id="">
 
 
-            
+
           </form>
         </div>
       </div>
+
       
 
 

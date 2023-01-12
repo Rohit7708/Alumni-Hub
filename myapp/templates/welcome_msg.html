@@ -89,7 +89,8 @@ and main content of the page -->
                             <span class="menu-collapsed">Profile</span>
                         </div>
                     </a>
-                    <a href="{% url 'update_profile' session_id %}" class="bg-dark list-group-item list-group-item-action">
+                    <a href="{% url 'update_profile' session_id %}"
+                        class="bg-dark list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-envelope-o fa-fw mr-3"></span>
                             <span class="menu-collapsed">Update Profile</span>
@@ -101,6 +102,11 @@ and main content of the page -->
             </div><!-- sidebar-container END -->
 
             <!-- MAIN -->
+            {% if message %}
+            <script>
+                alert('{{ message }}');
+            </script>
+            {% endif %}
             <div class="msg">
                 <div class="row">
                     <div class="col">

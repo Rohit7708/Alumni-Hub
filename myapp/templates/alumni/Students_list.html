@@ -22,10 +22,23 @@
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
     </script>
 </head>
-<style>
+<script type="text/javascript">
+  window.onload = function () {
+    //Reference the DropDownList.
+    var ddlYears = document.getElementById("ddlYears");
 
+    //Determine the Current Year.
+    var currentYear = (new Date()).getFullYear();
 
-</style>
+    //Loop and add the Year values to DropDownList.
+    for (var i = 1950; i <= currentYear; i++) {
+      var option = document.createElement("OPTION");
+      option.innerHTML = i;
+      option.value = i;
+      ddlYears.appendChild(option);
+    }
+  };
+</script>
 
 <body>
   <!-- top navbar -->
@@ -41,7 +54,7 @@ navbar-light bg-primary">
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="btn btn-danger" href="{% url 'home' %}">Logout</a>
+          <a class="btn btn-danger" href="">Logout</a>
         </li>
         <!-- navbar links -->
 
@@ -61,13 +74,13 @@ and main content of the page -->
           <!-- Separator with title -->
 
           <!-- /END Separator -->
-          <a href="{% url 'students_list' session_id %}" class="bg-dark list-group-item list-group-item-action">
+          <a href="" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
               <span class="fa fa-calendar fa-fw mr-3"></span>
               <span class="menu-collapsed">Students List</span>
             </div>
           </a>
-          <a href="#" class="bg-dark list-group-item list-group-item-action">
+          <a href="{% url 'news_not' session_id %}" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
               <span class="fa fa-envelope-o fa-fw mr-3"></span>
               <span class="menu-collapsed">News & Events</span>
@@ -95,52 +108,22 @@ and main content of the page -->
           </a>
 
 
-        </ul>
-      </div>
+        </ul><!-- List Group END-->
+      </div><!-- sidebar-container END -->
 
       <!-- MAIN -->
       <div class="profile mx-auto">
         <div class="container pt-3">
           
-          <h3>News and Events</h3>
-          <br>
-          <table class="table table-striped">
-            {% for i in not_list %}
-            <div class="card">
-              <div class="card-header">
-                Posted on: {{i.date}} Time: {{i.time}}
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Title: {{i.title}}</h5>
-                <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
-                <a href="{% url 'notification_detail' i.description i.title i.attachment i.enddate i.startdate %}" class="btn btn-primary">View more</a>
-              </div>
-            </div>
-        </div>
-        <br>
-        {% endfor %}
-        </table>
-
-      </div>
-
-
-    </div>
-
-
-    <div class="profile">
-      <div class="container pt-6">
-        <div class="container">
-          <br>
-          <a class="btn btn-primary btn-lg float-right" href="{% url 'al_event_notify' session_id %}">Create</a>
         </div>
       </div>
-    </div>
+
+      
 
 
 
 
-
-  </div><!-- Main Col END -->
+    </div><!-- Main Col END -->
 
   </div><!-- body-row END -->
 
@@ -219,5 +202,4 @@ and main content of the page -->
 </style>
 
 </html>
-
 </html>

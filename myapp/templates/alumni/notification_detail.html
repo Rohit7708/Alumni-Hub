@@ -23,8 +23,10 @@
     </script>
 </head>
 <style>
-
-
+  body{
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(81,79,233,1) 45%, rgba(82,166,224,1) 81%, rgba(0,212,255,1) 100%);
+  }
 </style>
 
 <body>
@@ -59,12 +61,14 @@ and main content of the page -->
 <div class="profile mx-auto">
   <div class="container pt-3">
       <div class="card text-center">
-        <div class="card-header">
-          <h3>Event Details</h3>
+        <div class="card-header bg-warning">
+          <marquee behavior="" direction=""><h3>Event Name: {{title}}</h3></marquee>
         </div>
         <div class="card-body">
-          <h5 class="card-title">Title: {{title}}</h5>
+          <h5 class="card-title"></h5>
           <p class="card-text">{{description}}</p>
+          <p class="card-text"><b>Start Date:</b>  {{startdate}} </p>
+          <p class="card-text"><b>End Date:</b>  {{enddate}} </p>
         </div>
         <div class="card-footer text-muted">
           <p> Attachment : {{att}}</p>

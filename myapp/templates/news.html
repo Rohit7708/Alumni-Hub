@@ -117,7 +117,7 @@ and main content of the page -->
                 <div class="card-body">
                   <h5 class="card-title">Title: {{i.title}}</h5>
               
-                  <a href="{% url 'st_notification_detail' session_id i.description i.title i.attachment %}" class="btn btn-primary">View more</a>
+                  <a href="{% url 'st_notification_detail' session_id i.description i.title i.attachment i.enddate i.startdate %}" class="btn btn-primary">View more</a>
                 </div>
               </div>
           </div>

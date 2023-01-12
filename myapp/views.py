@@ -5,6 +5,7 @@ import uuid
 import pyrebase
 import smtplib
 from email.message import EmailMessage
+from datetime import date
 
 # Create your views here.
 config = {
@@ -21,6 +22,9 @@ config = {
 firebase=pyrebase.initialize_app(config)
 authe = firebase.auth()
 database=firebase.database()
+
+def home(request):
+    return render(request,"home.html")
  
 def signIn(request):
     return render(request,"login.html")
@@ -95,18 +99,29 @@ def welcome(request,session_id):
     return render(request,"welcome_msg.html",context)
 
 def profile(request,session_id):
-    if request.method=="POST":
-        roll=request.POST.get('roll')
-        firstname=request.POST.get('firstname')
-        lastname=request.POST.get('lastname')
-        phone=request.POST.get('phone')
-        batch=request.POST.get('batch')
-        pemail=request.POST.get('pemail')
-        oemail=request.POST.get('oemail')
+    result= database.child("users").child(session_id).child("details").get().val()
+    print(result)
+    if result is not None:
+        message="your profile is being already created"
+        return render(request,"welcome_msg.html",{'message':message,'session_id':session_id})
+    else: 
+        if request.method=="POST":
+            roll=request.POST.get('roll_number')
+            firstname=request.POST.get('firstname')
+            lastname=request.POST.get('lastname')
+            phone=request.POST.get('phone')
+            batch=request.POST.get('batch')
+            pemail=request.POST.get('pemail')
+            oemail=request.POST.get('oemail')
+            department=request.POST.get('department')
+            print(department)
+            print(roll)
+            print(batch)
+            workingat=request.POST.get('workingat')
 
 
-        data={'firstname':firstname,'roll':roll,'lastname':lastname,'phone':phone,'batch':batch,'pmeail':pemail,'oemail':oemail}
-        database.child("users").child(session_id).child("details").set(data)
+            data={'firstname':firstname,'roll':roll,'lastname':lastname,'phone':phone,'batch':batch,'pmeail':pemail,'oemail':oemail,'department':department,'workingat':workingat}
+            database.child("users").child(session_id).child("details").set(data)
 
     context={'session_id':session_id}
     return render(request,'profile.html',context)
@@ -117,7 +132,7 @@ def update_profile(request,session_id):
     return render(request,"update_profile.html",context)
 
 def alumnilist(request,session_id):
-    final=[]
+    final_list=[]
     if request.method=="POST":
         batch=request.POST.get('batch')
         print(batch)
@@ -125,13 +140,12 @@ def alumnilist(request,session_id):
         print(result)
         for i in result.keys():
             if(result[i]['details']['batch'] == batch):
-                final.append(result[i]['details'])
+                final_list.append(result[i]['details'])
         print("the final")
-        print(final)
+        print(final_list)
+    not_list = sorted(final_list,key= lambda x : x["roll"])
         
-
-
-    context={'session_id':session_id,'final':final}
+    context={'session_id':session_id,'final':not_list}
     return render(request,"alumni_list.html",context)
 
 def news(request,session_id):
@@ -155,9 +169,9 @@ def news(request,session_id):
     context={'session_id':session_id,'not_list':not_list}
     return render(request,"news.html",context)
 
-def notification_detail_student(request,session_id,description,title,att):
+def notification_detail_student(request,session_id,description,title,att,startdate,enddate):
 
-    context={'session_id':session_id,'description':description,'title':title,'att':att}
+    context={'session_id':session_id,'description':description,'title':title,'att':att,'startdate':startdate,'enddate':enddate}
     return render(request,"st_notification_detail.html",context)
 
 def create_notification(request,session_id):
@@ -166,14 +180,15 @@ def create_notification(request,session_id):
         title=request.POST.get('title')
         des=request.POST.get('des')
         att=request.POST.get('attachment')
+        startdate=request.POST.get('startdate')
+        enddate=request.POST.get('enddate')
         print(att)
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
-        
         today = timezone.now().timestamp()
         notification_id = uuid.uuid4()
 
-        data={'title':title,'description':des,'attachment':att,'time':current_time,'date':today,'student_id':session_id,'notification_pushedby':"student"}
+        data={'title':title,'startdate':startdate,'enddate':enddate,'description':des,'attachment':att,'time':current_time,'date':today,'student_id':session_id,'notification_pushedby':"student"}
         database.child("event_notification").child(notification_id).child("details").set(data)
 
         result=database.child("users").get().val()
@@ -196,6 +211,10 @@ def create_notification(request,session_id):
                 print("msg sent")
 
     return render(request,"st_event_notify.html")
+
+def notification_history(request,session_id):
+    context={}
+    return render(request,"sent_notification.html")
 
 def jobs(request,session_id):
 
@@ -264,17 +283,40 @@ def alumni_mainpage(request,session_id):
     context={'session_id':session_id}
     return render(request,'alumni/alumni_mainpage.html',context)
 
-def alumni_profile(request,session_id):
-    roll=request.POST.get('roll')
-    firstname=request.POST.get('firstname')
-    lastname=request.POST.get('lastname')
-    phone=request.POST.get('phone')
-    batch=request.POST.get('batch')
-    pemail=request.POST.get('pemail')
-    oemail=request.POST.get('oemail')
+def students_list(request,session_id):
+    list=[]
+    result = database.child("users").get().val()
+    for i in result.keys():
+            if(result[i]['report']['role'] == "student"):
+                list.append(result[i]['details']) 
 
-    data={'firstname':firstname,'roll':roll,'lastname':lastname,'phone':phone,'batch':batch,'pmeail':pemail,'oemail':oemail}
-    database.child("users").child(session_id).child("details").set(data)
+    context={'session_id':session_id,'result':result}
+    return render(request,'alumni/students_list.html',context)
+
+def alumni_profile(request,session_id):
+    result= database.child("users").child(session_id).child("details").get().val()
+    print(result)
+    if result is not None:
+        message="your profile is being already created"
+        return render(request,"welcome_msg.html",{'message':message,'session_id':session_id})
+    else: 
+        if request.method=="POST":
+            roll=request.POST.get('roll_number')
+            firstname=request.POST.get('firstname')
+            lastname=request.POST.get('lastname')
+            phone=request.POST.get('phone')
+            batch=request.POST.get('batch')
+            pemail=request.POST.get('pemail')
+            oemail=request.POST.get('oemail')
+            department=request.POST.get('department')
+            print(department)
+            print(roll)
+            print(batch)
+            workingat=request.POST.get('workingat')
+
+
+            data={'firstname':firstname,'roll':roll,'lastname':lastname,'phone':phone,'batch':batch,'pmeail':pemail,'oemail':oemail,'department':department,'workingat':workingat}
+            database.child("users").child(session_id).child("details").set(data)
     context={'session_id':session_id}
     return render(request,"alumni/alumni_profileset.html",context)
 
@@ -297,16 +339,18 @@ def alumni_news(request,session_id):
     context={'session_id':session_id,'not_list':not_list}
     return render(request,"alumni/news_not.html",context)
 
-def notification_detail(request,description,title,att):
+def notification_detail(request,description,title,att,startdate,enddate):
     print(description)
     print(title)
-    context={'description':description,'title':title,'att':att}
+    context={'description':description,'title':title,'att':att,'startdate':startdate,'enddate':enddate}
     return render(request,"alumni/notification_detail.html",context)
 
 def al_event_notify(request,session_id):
     mail_list=[]
     if request.method=="POST":
         title=request.POST.get('title')
+        startdate=request.POST.get('startdate')
+        enddate=request.POST.get('enddate')
         des=request.POST.get('des')
         att=request.POST.get('attachment')
         now = datetime.now()
@@ -315,7 +359,7 @@ def al_event_notify(request,session_id):
         date = today.strftime("%B %d, %Y")
         notification_id = uuid.uuid4()
 
-        data={'title':title,'description':des,'attachment':att,'time':current_time,'date':date,'student_id':session_id,'notification_pushedby':"alumni"}
+        data={'title':title,'startdate':startdate,'enddate':enddate,'description':des,'attachment':att,'time':current_time,'date':date,'student_id':session_id,'notification_pushedby':"alumni"}
         database.child("Student_event_notification").child(notification_id).child("details").set(data)
 
         result=database.child("users").get().val()
