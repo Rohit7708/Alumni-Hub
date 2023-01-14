@@ -148,26 +148,6 @@ def alumnilist(request,session_id):
     context={'session_id':session_id,'final':not_list}
     return render(request,"alumni_list.html",context)
 
-def news(request,session_id):
-    not_list=[]
-    events = database.child("Student_event_notification").get().val()
-    if events is not None:
-        for i in events.keys():
-            if(events[i]['details']['notification_pushedby'] == "alumni"):
-                not_list.append(events[i]['details']) 
-        
-    else:
-        Message="No events"
-        print(Message)
-
-    not_list = sorted(not_list,key= lambda x : x["date"], reverse=True)
-
-    print(not_list)
-    
-
-
-    context={'session_id':session_id,'not_list':not_list}
-    return render(request,"news.html",context)
 
 def notification_detail_student(request,session_id,description,title,att,startdate,enddate):
 
@@ -175,6 +155,11 @@ def notification_detail_student(request,session_id,description,title,att,startda
     return render(request,"st_notification_detail.html",context)
 
 def create_notification(request,session_id):
+    
+
+    return render(request,"st_event_notify.html")
+
+def notification_history(request,session_id):
     mail_list=[]
     if request.method=="POST":
         title=request.POST.get('title')
@@ -188,7 +173,7 @@ def create_notification(request,session_id):
         today = timezone.now().timestamp()
         notification_id = uuid.uuid4()
 
-        data={'title':title,'startdate':startdate,'enddate':enddate,'description':des,'attachment':att,'time':current_time,'date':today,'student_id':session_id,'notification_pushedby':"student"}
+        data={'title':title,'startdate':startdate,'enddate':enddate,'description':des,'attachment':att,'time':current_time,'date':today,'student_id':session_id,'notification_pushedby':"student",'session_id':session_id}
         database.child("event_notification").child(notification_id).child("details").set(data)
 
         result=database.child("users").get().val()
@@ -210,11 +195,55 @@ def create_notification(request,session_id):
                 smtp.send_message(msg)
                 print("msg sent")
 
-    return render(request,"st_event_notify.html")
+    not_list=[]
+    event = database.child("event_notification").get().val()
+    if event is not None:
+        for i in event.keys():
+            if(event[i]['details']['notification_pushedby'] == "alumni"):
+                not_list.append(event[i]['details']) 
+        
+    else:
+        Message="No events"
+        print(Message)
 
-def notification_history(request,session_id):
-    context={}
-    return render(request,"sent_notification.html")
+    st_notificataion_list=[]
+    events = database.child("event_notification").get().val()
+    if events is not None:
+        for i in events.keys():
+            if(events[i]['details']['notification_pushedby'] == "student"):
+                st_notificataion_list.append(events[i]['details']) 
+        
+    else:
+        message="No Events to Display"
+        print(message)
+
+    my_list=[]
+    my_notification = database.child("event_notification").get().val()
+    if my_notification is not None:
+        for i in my_notification.keys():
+            if(my_notification[i]['details']['student_id']==session_id):
+                my_list.append(my_notification[i]['details'])
+
+    else:
+        print("no notification")
+
+    
+
+    st_notificataion_list = sorted(st_notificataion_list,key= lambda x : x["date"], reverse=True)
+    print("st_not")
+    print(st_notificataion_list)
+
+    not_list = sorted(not_list,key= lambda x : x["date"], reverse=True)
+    print(not_list)
+
+    my_list=sorted(my_list,key=lambda x: x["date"],reverse=True)
+    print(my_list)
+
+    
+
+
+    context={'session_id':session_id,'not_list':not_list,'st_notification_list':st_notificataion_list,'my_list':my_list}
+    return render(request,"notification_history.html",context)
 
 def jobs(request,session_id):
 
@@ -283,6 +312,93 @@ def alumni_mainpage(request,session_id):
     context={'session_id':session_id}
     return render(request,'alumni/alumni_mainpage.html',context)
 
+def alumni_notification(request,session_id):
+    mail_list=[]
+    if request.method=="POST":
+        title=request.POST.get('title')
+        des=request.POST.get('des')
+        att=request.POST.get('attachment')
+        startdate=request.POST.get('startdate')
+        enddate=request.POST.get('enddate')
+        print(att)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        today = timezone.now().timestamp()
+        notification_id = uuid.uuid4()
+
+        data={'title':title,'startdate':startdate,'enddate':enddate,'description':des,'attachment':att,'time':current_time,'date':today,'student_id':session_id,'notification_pushedby':"alumni",'session_id':session_id}
+        database.child("event_notification").child(notification_id).child("details").set(data)
+
+        result=database.child("users").get().val()
+        for i in result.keys():
+            if(result[i]['report']['role'] == "alumni"):
+                mail_list.append(result[i]['details'])      
+
+        for i in mail_list:
+            EMAIL_ADDRESS='alumnihub.123@gmail.com'
+            EMAIL_PASSWORD='veicbwofgzonpzih'
+            msg=EmailMessage()
+            msg['subject']='Event notification'
+            msg['form']=EMAIL_ADDRESS
+            msg['To']=i['pmeail']
+            msg.set_content('Event notification has been posted. Kindly check your AlumniHub !')
+
+            with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:
+                smtp.login(EMAIL_ADDRESS,EMAIL_PASSWORD)
+                smtp.send_message(msg)
+                print("msg sent")
+
+    not_list=[]
+    event = database.child("event_notification").get().val()
+    if event is not None:
+        for i in event.keys():
+            if(event[i]['details']['notification_pushedby'] == "alumni"):
+                not_list.append(event[i]['details']) 
+        
+    else:
+        Message="No events"
+        print(Message)
+
+    st_notificataion_list=[]
+    events = database.child("event_notification").get().val()
+    if events is not None:
+        for i in events.keys():
+            if(events[i]['details']['notification_pushedby'] == "student"):
+                st_notificataion_list.append(events[i]['details']) 
+        
+    else:
+        message="No Events to Display"
+        print(message)
+
+    my_list=[]
+    my_notification = database.child("event_notification").get().val()
+    if my_notification is not None:
+        for i in my_notification.keys():
+            if(my_notification[i]['details']['student_id']==session_id):
+                my_list.append(my_notification[i]['details'])
+
+    else:
+        print("no notification")
+
+    
+
+    st_notificataion_list = sorted(st_notificataion_list,key= lambda x : x["date"], reverse=True)
+    print("st_not")
+    print(st_notificataion_list)
+
+    not_list = sorted(not_list,key= lambda x : x["date"], reverse=True)
+    print(not_list)
+
+    my_list=sorted(my_list,key=lambda x: x["date"],reverse=True)
+    print("mylist")
+    print(my_list)
+
+    
+
+
+    context={'session_id':session_id,'not_list':not_list,'st_notification_list':st_notificataion_list,'my_list':my_list}
+    return render(request,"alumni/alumni_notification.html",context)
+
 def students_list(request,session_id):
     list=[]
     result = database.child("users").get().val()
@@ -320,24 +436,6 @@ def alumni_profile(request,session_id):
     context={'session_id':session_id}
     return render(request,"alumni/alumni_profileset.html",context)
 
-def alumni_news(request,session_id):
-    not_list=[]
-    events = database.child("event_notification").get().val()
-    if events is not None:
-        for i in events.keys():
-            if(events[i]['details']['notification_pushedby'] == "student"):
-                not_list.append(events[i]['details']) 
-        
-    else:
-        message="No Events to Display"
-        print(message)
-
-    not_list = sorted(not_list,key= lambda x : x["date"], reverse=True)
-
-    print(not_list)
-    print(not_list)
-    context={'session_id':session_id,'not_list':not_list}
-    return render(request,"alumni/news_not.html",context)
 
 def notification_detail(request,description,title,att,startdate,enddate):
     print(description)
