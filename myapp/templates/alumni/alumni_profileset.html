@@ -1,259 +1,327 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <!-- import bootstrap cdn-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  <!-- import jquery cdn -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
-  <!-- import popper.js cdn -->
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
-    </script>
-  <!-- import javascript cdn -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
-    </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="title icon" href="images/title-img.png">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+    integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <title></title>
 </head>
-<script type="text/javascript">
-  window.onload = function () {
-    //Reference the DropDownList.
-    var ddlYears = document.getElementById("ddlYears");
-
-    //Determine the Current Year.
-    var currentYear = (new Date()).getFullYear();
-
-    //Loop and add the Year values to DropDownList.
-    for (var i = 1950; i <= currentYear; i++) {
-      var option = document.createElement("OPTION");
-      option.innerHTML = i;
-      option.value = i;
-      ddlYears.appendChild(option);
-    }
-  };
-</script>
 
 <body>
-  <!-- top navbar -->
-  <nav class="navbar navbar-expand-lg
-navbar-light bg-primary">
-    <a class="navbar-brand" href="#">AlumniHub</a>
-    <!-- hamburger button that toggles the navbar-->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon">
-      </span>
+  <!------Navbar---------->
+  <nav class="navbar navbar-expand-md navbar-light">
+    <button class="navbar-toggler ml-auto mb-2 bg-light" type="button" data-toggle="collapse" data-target="#myNavbar">
+      <span class="navbar-toggler-icon"></span>
+
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="btn btn-danger" href="">Logout</a>
-        </li>
-        <!-- navbar links -->
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <div class="container-fluid">
+        <div class="row">
 
+          <!------Sidebar---------->
+          <div class=" col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
+            <a href="#" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 bottom-border"></a>
+            <div class="bottom-border pb-3">
+              <img src="http://res.cloudinary.com/dfqddpjfl/image/upload/v1494008772/woman1_nr8qgi.jpg" width="50"
+                class="rounded-circle mr-3">
+              <a href="#" class="text-white">{{name}}</a>
+            </div>
+            <ul class="navbar-nav flex-column mt-4">
+              <li class="nav-item"><a href="{% url 'alumni_mainpage' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-home text-light fa-lg mr-3"></i>Home</a></li>
+              <li class="nav-item"><a href="{% url 'students_list' %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-user text-light fa-lg mr-3"></i>Alumni List</a></li>
+              <li class="nav-item"><a href="{% url 'alumni_notification' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-envelope text-light fa-lg mr-3"></i>News and Events</a></li>
+              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-id-card text-light fa-lg mr-3"></i>Job Opportunities</a></li>
+              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-envelope text-light fa-lg mr-3"></i>Message</a></li>
+              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-user text-light fa-lg mr-3"></i>Interview Experience</a></li>
+              <li class="nav-item"><a href="" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-user text-light fa-lg mr-3"></i>Create Profile</a></li>
+              <li class="nav-item"><a href="{% url 'alumni_updateprofile' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-id-card text-light fa-lg mr-3"></i>Update Profile</a></li>
+              
+              <!-- <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i class="fas fa-file-alt text-light fa-lg mr-3"></i></a></li> -->
+            </ul>
+          </div>
+          <!------End of Sidebar--->
+
+          <!------Top nav---------->
+          <div class=" col-xl-10 col-lg-9 col-md-8 ml-auto bg-dark fixed-top py-2 top-navbar">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <h4 class="text-light text-uppercase mb-0">Alumni Hub</h4>
+              </div>
+              <div class="col-md-5">
+
+
+              </div>
+              <div class="col-md-3">
+                <ul class="navbar-nav">
+                  <li class="nav-item ml-md-auto"><a href="#" class="nav-link" data-toggle="modal"
+                      data-target="#sign-out"><i class="fas fa-sign-out-alt text-danger fa-lg"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <div>
+            </div>
+          </div>
+          <!------End of Top Nav--->
+        </div>
   </nav>
-  <!-- This container contains the sidebar
-and main content of the page -->
-  <!-- h-100 takes the full height of the body-->
-  <div class="container-fluid p-0">
+  <!------End of Navbar--->
 
-    <!-- Bootstrap row -->
-    <div class="row" id="body-row">
-      <!-- Sidebar -->
-      <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
-        <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
-        <!-- Bootstrap List Group -->
-        <ul class="list-group">
-          <!-- Separator with title -->
+  <!------Modal--->
+  <div class="modal fade" id="sign-out">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Wat to sign out?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;
 
-          <!-- /END Separator -->
-          <a href="" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-calendar fa-fw mr-3"></span>
-              <span class="menu-collapsed">Students List</span>
-            </div>
-          </a>
-          <a href="{% url 'news_not' session_id %}" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-envelope-o fa-fw mr-3"></span>
-              <span class="menu-collapsed">News & Events</span>
-            </div>
-          </a>
-
-          <a href="{% url 'alumni_job' session_id %}" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-envelope-o fa-fw mr-3"></span>
-              <span class="menu-collapsed">Push Job notifications</span>
-            </div>
-          </a>
-
-          <a href="#" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-envelope-o fa-fw mr-3"></span>
-              <span class="menu-collapsed">Messages</span>
-            </div>
-          </a>
-          <a href="" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-envelope-o fa-fw mr-3"></span>
-              <span class="menu-collapsed">Profile</span>
-            </div>
-          </a>
-
-
-        </ul><!-- List Group END-->
-      </div><!-- sidebar-container END -->
-
-      <!-- MAIN -->
-      <div class="profile mx-auto">
-        <div class="container pt-3">
-          <form action="" method="POST">
-            {% csrf_token %}
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="firstname"><b>First Name</b></label>
-                <input type="text" class="form-control" name="firstname" placeholder="First Name">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="inputPassword4"><b>Last Name</b></label>
-                <input type="text" class="form-control" name="lastname" placeholder="Last Name">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="rollnumber"><b>Roll Number</b></label>
-              <input type="text" class="form-control" name="roll_number" placeholder="Roll Number">
-            </div>
-            <div class="form-group">
-              <label for="batch"><b>Batch</b></label>
-              <select name="batch" style="width: 300px;" id="ddlYears"></select>
-            </div>
-            
-            
-            <div class="form-group">
-              <label for="department">Department</label>
-              <select name="department" style="width: 500px;" id="dept">
-                <option value="None"><b>--Select your department--</b></option>
-                <option value="MCA">MCA</option>
-                <option value="Computer Science and Engineering">Computer Science and Engineering</option>
-                <option value="Information Technology">Information Technology</option>
-                <option value="Mechanical Engineering">Mechanical Engineering</option>
-                <option value="ECE">ECE</option>
-                <option value="EEE">EEE</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="official_email"><b>Official Email</b></label>
-              <input type="email" class="form-control" name="oemail" placeholder="official email">
-            </div>
-            <div class="form-group">
-              <label for="rollnumber"><b>Personal Email</b></label>
-              <input type="email" class="form-control" name="pemail" placeholder="personal email">
-            </div>
-            <div class="form-group">
-              <label for="tel"><b>Phone</b></label>
-              <input type="tel" name="phone" class="form-control" name="phone" placeholder="Phone No" required>
-            </div>
-            <div class="form-group">
-              <label for="rollnumber"><b>Working At (Mention as NA if not applicable)</b></label>
-              <input type="text" class="form-control" name="roll" placeholder="Woriking At">
-            </div>
-            <input type="submit" class="btn btn-primary" name="submit" id="">
-
-
-
-          </form>
+          </button>
+        </div>
+        <div class="modal-body">
+          Log out
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Stay Here</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Log out</button>
         </div>
       </div>
+    </div>
+  </div>
+  <!------End of Modal--->
 
-      
+  <!------Cards--->
+  
+
+  <section>
+
+    <div class="container-fluid">
+      <div class="row mb-10">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+          <div class="row">
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+              <h3 class="text-muted text-center mb-3">Alumni List</h3>
+              <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="firstname"><b>First Name</b></label>
+                    <input type="text" class="form-control" name="firstname" placeholder="First Name">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputPassword4"><b>Last Name</b></label>
+                    <input type="text" class="form-control" name="lastname" placeholder="Last Name">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="rollnumber"><b>Roll Number</b></label>
+                  <input type="text" class="form-control" name="roll_number" placeholder="Roll Number" required>
+                </div>
+                <div class="form-group">
+                  <label for="batch"><b>Batch</b></label>
+                  <!-- <select name="batch" style="width: 300px;" id="ddlYears"></select> -->
+                  <input type="text" name="batch" id="" required>
+                </div>
+                
+                
+                <div class="form-group">
+                  <label for="department">Department</label>
+                  <select name="department" style="width: 500px;" id="dept" required>
+                    <option value="None"><b>--Select your department--</b></option>
+                    <option value="MCA">MCA</option>
+                    <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Mechanical Engineering">Mechanical Engineering</option>
+                    <option value="ECE">ECE</option>
+                    <option value="EEE">EEE</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="official_email"><b>Official Email</b></label>
+                  <input type="email" class="form-control" name="oemail" placeholder="official email" required>
+                </div>
+                <div class="form-group">
+                  <label for="rollnumber"><b>Personal Email</b></label>
+                  <input type="email" class="form-control" name="pemail" placeholder="personal email" required>
+                </div>
+                <div class="form-group">
+                  <label for="tel"><b>Phone</b></label>
+                  <input type="tel" name="phone" class="form-control" name="phone" placeholder="Phone No" required>
+                </div>
+                <div class="form-group">
+                  <label for="rollnumber"><b>Working At (Mention as NA if not applicable)</b></label>
+                  <input type="text" class="form-control" name="roll" placeholder="Woriking At">
+                </div>
+                <input type="submit" class="btn btn-primary" name="submit" id="">
+    
+    
+    
+              </form>
+
+              
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+        
+    
+    <!------Pagination--->
+
+    <!------End of Footer--->
 
 
 
 
-    </div><!-- Main Col END -->
 
-  </div><!-- body-row END -->
-
-
-  </div><!-- container -->
-
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
-
-
-
 <style>
-  @import url('https://fonts.googleapis.com/css?family=Montserrat');
+  body {
+    font-family: 'Montserrat', sans-serif;
+    /* background-color: rgb(255, 255, 255); */
+    }
 
-  /*-------------------------------- END ----*/
-  #body-row {
-    margin-left: 0;
-    margin-right: 0;
+  /* Navbar */
+  .sidebar {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .9)), url(images/img1.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* box-shadow: 5px 7px 25px #999; */
   }
 
-  #sidebar-container {
-    min-height: 100vh;
-    background-color: #132644;
-    padding: 0;
-    /* flex: unset; */
+  .bottom-border {
+    border-bottom: 1px groove #eee;
   }
 
-  .sidebar-expanded {
-    width: 230px;
+  .sidebar-link:hover {
+    background-color: #444;
+    border-radius: 5px;
   }
 
-  .sidebar-collapsed {
-    /*width: 60px;*/
-    width: 100px;
+  .sidebar-link {
+    transition: all .4s;
   }
 
-  /* ----------| Menu item*/
-  #sidebar-container .list-group a {
-    height: 50px;
-    color: white;
+  .current {
+    background-color: #f44336;
+    border-radius: 7px;
+    box-shadow: 2px 5px 10px #111;
+    transition: all .3s;
   }
 
-  /* ----------| Submenu item*/
-  #sidebar-container .list-group li.list-group-item {
-    background-color: #132644;
+  .current:hover {
+    background-color: #f66436;
+    border-radius: 7px;
+    box-shadow: 2px 5px 20px #111;
+    transform: translate(-1px);
   }
 
-  #sidebar-container .list-group .sidebar-submenu a {
-    height: 45px;
-    padding-left: 30px;
+  .search-input {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #999;
+    transition: all 0.4s;
   }
 
-  .sidebar-submenu {
-    font-size: 0.9rem;
+  .search-input:focus {
+    background: transparent;
+    box-shadow: none;
+    border-bottom: 2px solid #dc3545;
   }
 
-  /* ----------| Separators */
-  .sidebar-separator-title {
-    background-color: #132644;
-    height: 35px;
+  .search-button {
+    border-radius: 50%;
+    padding: 10px 16px;
+    transition: all .4s;
   }
 
-  .sidebar-separator {
-    background-color: #132644;
-    height: 25px;
+  .search-button:hover {
+    background-color: #eee;
+    transform: translate(-1px);
   }
 
-  .logo-separator {
-    background-color: #132644;
-    height: 60px;
+  .icon-parent {
+    position: relative;
   }
 
-  a.bg-dark {
-    background-color: #132644 !important;
+  .icon-bullet ::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 15px;
+    height: 12px;
+    width: 12px;
+    background-color: #f44336;
+    border-radius: 50%;
   }
+
+  @media(max-width: 768px) {
+    .sidebar {
+      position: static;
+      height: auto;
+    }
+
+    .top-navbar {
+      position: static;
+    }
+  }
+
+  /* End of Navbar */
+
+  /* Cards */
+  .card-common {
+    box-shadow: 1px 2px 5px #999;
+    transition: all .4s;
+  }
+
+  .card-common:hover {
+    box-shadow: 2px 3px 15px #999;
+    transform: translateY(-1px);
+
+  }
+
+  /* End of Cards */
+
+  /* Task-list */
+  .task-border {
+    border-left: 3px solid #f66346
+  }
+
+  /* End of Task-list */
 </style>
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
 
-</html>
+
 </html>

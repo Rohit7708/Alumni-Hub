@@ -1,8 +1,3 @@
-{% if message %}
-<script>
-	alert('{{ message }}');
-</script>
-{% endif %}
 <!doctype html>
 <html lang="en">
 
@@ -37,13 +32,13 @@
             <div class="bottom-border pb-3">
               <img src="http://res.cloudinary.com/dfqddpjfl/image/upload/v1494008772/woman1_nr8qgi.jpg" width="50"
                 class="rounded-circle mr-3">
-              <a href="#" class="text-white"></a>
+              <a href="#" class="text-white">{{name}}</a>
             </div>
             <ul class="navbar-nav flex-column mt-4">
-              <li class="nav-item"><a href="" class="nav-link text-white p-2 mb-2"><i
+              <li class="nav-item"><a href="{% url 'welcome' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-home text-light fa-lg mr-3"></i>Home</a></li>
               <li class="nav-item"><a href="{% url 'students_list' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                    class="fas fa-user text-light fa-lg mr-3"></i>Students List</a></li>
+                    class="fas fa-user text-light fa-lg mr-3"></i>Alumni List</a></li>
               <li class="nav-item"><a href="{% url 'alumni_notification' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-envelope text-light fa-lg mr-3"></i>News and Events</a></li>
               <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
@@ -52,7 +47,7 @@
                     class="fas fa-envelope text-light fa-lg mr-3"></i>Message</a></li>
               <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-user text-light fa-lg mr-3"></i>Interview Experience</a></li>
-              <li class="nav-item"><a href="{% url 'alumni_profileset' session_id %}" class="nav-link text-white p-2 mb-2"><i
+              <li class="nav-item"><a href="" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-user text-light fa-lg mr-3"></i>Create Profile</a></li>
               <li class="nav-item"><a href="{% url 'alumni_updateprofile' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-id-card text-light fa-lg mr-3"></i>Update Profile</a></li>
@@ -110,7 +105,116 @@
   <!------End of Modal--->
 
   <!------Cards--->
+  <div class="container-fluid">
+    <div class="row mb-8">
+      <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+        <div class="row">
+            <div class="col-xl-15 col-lg-12 col-md-20 ml-auto">
+                <br>
+                <br>
+                <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <ol class="breadcrumb mb-0">
+                        <a href="{% url 'alumni_list' session_id %}" class="btn btn-primary">Back</a>
+                    </ol>
+                </nav>
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                            alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3"></h5>
+                        <p class="text-muted mb-1">{{roll}}</p>
+                        <p class="text-muted mb-4">{{firstname}} {{lastname}}</p>
+                        <p class="text-muted mb-4">  </p>
+                        <div class="d-flex justify-content-center mb-2">
+                        
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            
+                            <div class="col-sm-3">
+                                <p class="mb-0">First Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{firstname}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Last Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{lastname}}</p>
+                            </div>
+                            </div>
+                            <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Official Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{oemail}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Personal Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{pemail}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Phone</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{phone}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Batch</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{batch}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Working at</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{workingat}}</p>
+                            </div>
+                        </div>
+                        
+
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div></div></div>
+    </div>
+    </div>
+    </div>
+</section>
 
     <!------Pagination--->
 

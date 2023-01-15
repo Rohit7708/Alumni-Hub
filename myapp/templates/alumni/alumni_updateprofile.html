@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="title icon" href="images/title-img.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+        integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <title></title>
+</head>
+
+<body>
+    <!------Navbar---------->
+    <nav class="navbar navbar-expand-md navbar-light">
+        <button class="navbar-toggler ml-auto mb-2 bg-light" type="button" data-toggle="collapse"
+            data-target="#myNavbar">
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <!------Sidebar---------->
+                    <div class=" col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
+                        <a href="#"
+                            class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 bottom-border"></a>
+                        <div class="bottom-border pb-3">
+                            <img src="http://res.cloudinary.com/dfqddpjfl/image/upload/v1494008772/woman1_nr8qgi.jpg"
+                                width="50" class="rounded-circle mr-3">
+                            <a href="#" class="text-white">{{name}}</a>
+                        </div>
+                        <ul class="navbar-nav flex-column mt-4">
+                            <li class="nav-item"><a href="{% url 'alumni_mainpage' session_id %}"
+                                    class="nav-link text-white p-2 mb-2"><i
+                                        class="fas fa-home text-light fa-lg mr-3"></i>Home</a></li>
+                            <li class="nav-item"><a href="{% url 'students_list' session_id %}"
+                                    class="nav-link text-white p-2 mb-2"><i
+                                        class="fas fa-user text-light fa-lg mr-3"></i>Alumni List</a></li>
+                            <li class="nav-item"><a href="{% url 'alumni_notification' session_id %}"
+                                    class="nav-link text-white p-2 mb-2"><i
+                                        class="fas fa-envelope text-light fa-lg mr-3"></i>News and Events</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+                                        class="fas fa-id-card text-light fa-lg mr-3"></i>Job Opportunities</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+                                        class="fas fa-envelope text-light fa-lg mr-3"></i>Message</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+                                        class="fas fa-user text-light fa-lg mr-3"></i>Interview Experience</a></li>
+                            <li class="nav-item"><a href="{% url 'alumni_profileset' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                                        class="fas fa-user text-light fa-lg mr-3"></i>Create Profile</a></li>
+                            <li class="nav-item"><a href="" class="nav-link text-white p-2 mb-2"><i
+                                        class="fas fa-id-card text-light fa-lg mr-3"></i>Update Profile</a></li>
+
+                            <!-- <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i class="fas fa-file-alt text-light fa-lg mr-3"></i></a></li> -->
+                        </ul>
+                    </div>
+                    <!------End of Sidebar--->
+
+                    <!------Top nav---------->
+                    <div class=" col-xl-10 col-lg-9 col-md-8 ml-auto bg-dark fixed-top py-2 top-navbar">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <h4 class="text-light text-uppercase mb-0">Alumni Hub</h4>
+                            </div>
+                            <div class="col-md-5">
+
+
+                            </div>
+                            <div class="col-md-3">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item ml-md-auto"><a href="#" class="nav-link" data-toggle="modal"
+                                            data-target="#sign-out"><i
+                                                class="fas fa-sign-out-alt text-danger fa-lg"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                    <!------End of Top Nav--->
+                </div>
+    </nav>
+    <!------End of Navbar--->
+
+    <!------Modal--->
+    <div class="modal fade" id="sign-out">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Wat to sign out?</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;
+
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Log out
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Stay Here</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Log out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------End of Modal--->
+
+    <!------Cards--->
+
+
+    <section>
+
+        <div class="container-fluid">
+          <div class="row mb-10">
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+              <div class="row">
+                <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+                  <h3 class="text-muted text-center mb-3">Alumni List</h3>
+                  <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="firstname">First Name</label>
+                            <input type="text" class="form-control" name="firstname" value="{{details.firstname}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Last Name</label>
+                            <input type="text" class="form-control" name="lastname" value="{{details.lastname}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="batch"><b>Batch</b></label>
+                        <input type="text" class="form-control" name="batch" value="{{details.batch}}">
+                    </div>
+                
+                    </script>
+                    <div class="form-group">
+                        <label for="rollnumber">Roll Number</label>
+                        <input type="text" class="form-control" name="rollnumber" value="{{details.roll}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <input type="text" class="form-control" name="department" value="{{details.department}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="rollnumber">Official Email</label>
+                        <input type="email" class="form-control" name="oemail" value="{{details.oemail}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="rollnumber">Personal Email</label>
+                        <input type="email" class="form-control" name="pemail" value="{{details.pmeail}}">
+                    </div>
+                    <div class="
+                form-group">
+                        <label for="tel">Phone</label>
+                        <input type="tel" name="phone" class="form-control" name="phone" value="{{details.phone}}"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="workingat"><b>Working At (Mention as NA if not applicable)</b></label>
+                        <input type="text" value="{{details.workingat}}" class="form-control" name="workingat" placeholder="Woriking At">
+                    </div>
+                    <input type="submit" class="btn btn-primary" name="Update" id="">
+    
+    
+    
+                </form>
+    
+                  
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+    <!------Pagination--->
+
+    <!------End of Footer--->
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        /* background-color: rgb(255, 255, 255); */
+    }
+
+    /* Navbar */
+    .sidebar {
+        height: 100vh;
+        background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .9)), url(images/img1.jpeg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        /* box-shadow: 5px 7px 25px #999; */
+    }
+
+    .bottom-border {
+        border-bottom: 1px groove #eee;
+    }
+
+    .sidebar-link:hover {
+        background-color: #444;
+        border-radius: 5px;
+    }
+
+    .sidebar-link {
+        transition: all .4s;
+    }
+
+    .current {
+        background-color: #f44336;
+        border-radius: 7px;
+        box-shadow: 2px 5px 10px #111;
+        transition: all .3s;
+    }
+
+    .current:hover {
+        background-color: #f66436;
+        border-radius: 7px;
+        box-shadow: 2px 5px 20px #111;
+        transform: translate(-1px);
+    }
+
+    .search-input {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        border-bottom: 2px solid #999;
+        transition: all 0.4s;
+    }
+
+    .search-input:focus {
+        background: transparent;
+        box-shadow: none;
+        border-bottom: 2px solid #dc3545;
+    }
+
+    .search-button {
+        border-radius: 50%;
+        padding: 10px 16px;
+        transition: all .4s;
+    }
+
+    .search-button:hover {
+        background-color: #eee;
+        transform: translate(-1px);
+    }
+
+    .icon-parent {
+        position: relative;
+    }
+
+    .icon-bullet ::after {
+        content: "";
+        position: absolute;
+        top: 7px;
+        left: 15px;
+        height: 12px;
+        width: 12px;
+        background-color: #f44336;
+        border-radius: 50%;
+    }
+
+    @media(max-width: 768px) {
+        .sidebar {
+            position: static;
+            height: auto;
+        }
+
+        .top-navbar {
+            position: static;
+        }
+    }
+
+    /* End of Navbar */
+
+    /* Cards */
+    .card-common {
+        box-shadow: 1px 2px 5px #999;
+        transition: all .4s;
+    }
+
+    .card-common:hover {
+        box-shadow: 2px 3px 15px #999;
+        transform: translateY(-1px);
+
+    }
+
+    /* End of Cards */
+
+    /* Task-list */
+    .task-border {
+        border-left: 3px solid #f66346
+    }
+
+    /* End of Task-list */
+</style>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+
+
+</html>

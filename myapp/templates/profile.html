@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 
@@ -37,7 +38,7 @@
             <ul class="navbar-nav flex-column mt-4">
               <li class="nav-item"><a href="{% url 'welcome' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-home text-light fa-lg mr-3"></i>Home</a></li>
-              <li class="nav-item"><a href="{% url 'alumni_list' session_id %}" class="nav-link text-white p-2 mb-2"><i
+              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-user text-light fa-lg mr-3"></i>Alumni List</a></li>
               <li class="nav-item"><a href="{% url 'notification_history' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-envelope text-light fa-lg mr-3"></i>News and Events</a></li>
@@ -47,9 +48,9 @@
                     class="fas fa-envelope text-light fa-lg mr-3"></i>Message</a></li>
               <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-user text-light fa-lg mr-3"></i>Interview Experience</a></li>
-              <li class="nav-item"><a href="" class="nav-link text-white p-2 mb-2"><i
+              <li class="nav-item"><a href="{% url 'profile' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-user text-light fa-lg mr-3"></i>Create Profile</a></li>
-              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+              <li class="nav-item"><a href="{% url 'update_profile' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-id-card text-light fa-lg mr-3"></i>Update Profile</a></li>
               
               <!-- <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i class="fas fa-file-alt text-light fa-lg mr-3"></i></a></li> -->
@@ -105,8 +106,81 @@
   <!------End of Modal--->
 
   <!------Cards--->
+  
 
+  <section>
 
+    <div class="container-fluid">
+      <div class="row mb-10">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+          <div class="row">
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+              <h3 class="text-muted text-center mb-3">Alumni List</h3>
+              <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="firstname"><b>First Name</b></label>
+                    <input type="text" class="form-control" name="firstname" placeholder="First Name">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputPassword4"><b>Last Name</b></label>
+                    <input type="text" class="form-control" name="lastname" placeholder="Last Name">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="rollnumber"><b>Roll Number</b></label>
+                  <input type="text" class="form-control" name="roll_number" placeholder="Roll Number" required>
+                </div>
+                <div class="form-group">
+                  <label for="batch"><b>Batch</b></label>
+                  <!-- <select name="batch" style="width: 300px;" id="ddlYears"></select> -->
+                  <input type="text" name="batch" id="" required>
+                </div>
+                
+                
+                <div class="form-group">
+                  <label for="department">Department</label>
+                  <select name="department" style="width: 500px;" id="dept" required>
+                    <option value="None"><b>--Select your department--</b></option>
+                    <option value="MCA">MCA</option>
+                    <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Mechanical Engineering">Mechanical Engineering</option>
+                    <option value="ECE">ECE</option>
+                    <option value="EEE">EEE</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="official_email"><b>Official Email</b></label>
+                  <input type="email" class="form-control" name="oemail" placeholder="official email" required>
+                </div>
+                <div class="form-group">
+                  <label for="rollnumber"><b>Personal Email</b></label>
+                  <input type="email" class="form-control" name="pemail" placeholder="personal email" required>
+                </div>
+                <div class="form-group">
+                  <label for="tel"><b>Phone</b></label>
+                  <input type="tel" name="phone" class="form-control" name="phone" placeholder="Phone No" required>
+                </div>
+                <div class="form-group">
+                  <label for="rollnumber"><b>Working At (Mention as NA if not applicable)</b></label>
+                  <input type="text" class="form-control" name="roll" placeholder="Woriking At">
+                </div>
+                <input type="submit" class="btn btn-primary" name="submit" id="">
+    
+    
+    
+              </form>
+
+              
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+        
+    
     <!------Pagination--->
 
     <!------End of Footer--->
@@ -129,8 +203,8 @@
 <style>
   body {
     font-family: 'Montserrat', sans-serif;
-    background-color: #eee;
-  }
+    /* background-color: rgb(255, 255, 255); */
+    }
 
   /* Navbar */
   .sidebar {
@@ -139,7 +213,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    box-shadow: 5px 7px 25px #999;
+    /* box-shadow: 5px 7px 25px #999; */
   }
 
   .bottom-border {

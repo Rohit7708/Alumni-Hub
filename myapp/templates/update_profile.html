@@ -1,240 +1,320 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- import bootstrap cdn-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <!-- import jquery cdn -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-        </script>
-    <!-- import popper.js cdn -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
-        </script>
-    <!-- import javascript cdn -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
-        </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="title icon" href="images/title-img.png">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+    integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <title></title>
 </head>
 
 <body>
-    <!-- top navbar -->
-    <nav class="navbar navbar-expand-lg
-navbar-light bg-primary">
-        <a class="navbar-brand" href="#">AlumniHub</a>
-        <!-- hamburger button that toggles the navbar-->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon">
-            </span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="btn btn-danger" href="">Logout</a>
-                </li>
-                <!-- navbar links -->
+  <!------Navbar---------->
+  <nav class="navbar navbar-expand-md navbar-light">
+    <button class="navbar-toggler ml-auto mb-2 bg-light" type="button" data-toggle="collapse" data-target="#myNavbar">
+      <span class="navbar-toggler-icon"></span>
 
-    </nav>
-    <!-- This container contains the sidebar
-and main content of the page -->
-    <!-- h-100 takes the full height of the body-->
-    <div class="container-fluid p-0">
+    </button>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <div class="container-fluid">
+        <div class="row">
 
-        <!-- Bootstrap row -->
-        <div class="row" id="body-row">
-            <!-- Sidebar -->
-            <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
-                <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
-                <!-- Bootstrap List Group -->
-                <ul class="list-group">
-                    <!-- Separator with title -->
-
-                    <!-- /END Separator -->
-                    <a href="#" class="bg-dark list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-calendar fa-fw mr-3"></span>
-                            <span class="menu-collapsed">Alumni List</span>
-                        </div>
-                    </a>
-                    <a href="{% url 'news' session_id %}" class="bg-dark list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-envelope-o fa-fw mr-3"></span>
-                            <span class="menu-collapsed">News & Events</span>
-                        </div>
-                    </a>
-
-                    <a href="{% url 'jobs' session_id %}" class="bg-dark list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-envelope-o fa-fw mr-3"></span>
-                            <span class="menu-collapsed">Job Opportunities</span>
-                        </div>
-                    </a>
-
-                    <a href="#" class="bg-dark list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-envelope-o fa-fw mr-3"></span>
-                            <span class="menu-collapsed">Messages</span>
-                        </div>
-                    </a>
-                    <a href="{% url 'profile' session_id %}" class="bg-dark list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-envelope-o fa-fw mr-3"></span>
-                            <span class="menu-collapsed">Profile</span>
-                        </div>
-                    </a>
-                    <a href="" class="bg-dark list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-envelope-o fa-fw mr-3"></span>
-                            <span class="menu-collapsed">Update Profile</span>
-                        </div>
-                    </a>
-
-
-                </ul><!-- List Group END-->
-            </div><!-- sidebar-container END -->
-
-            <!-- MAIN -->
-            <div class="profile mx-auto">
-                <div class="container pt-3">
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="firstname">First Name</label>
-                                <input type="text" class="form-control" name="firstname" value="{{details.firstname}}">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword4">Last Name</label>
-                                <input type="text" class="form-control" name="lastname" value="{{details.lastname}}">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="batch"><b>Batch</b></label>
-                            <input type="text" class="form-control" name="roll" value="{{details.batch}}">
-                        </div>
-                    
-                        </script>
-                        <div class="form-group">
-                            <label for="rollnumber">Roll Number</label>
-                            <input type="text" class="form-control" name="roll" value="{{details.roll}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="department">Department</label>
-                            <input type="text" class="form-control" name="roll" value="{{details.department}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="rollnumber">Official Email</label>
-                            <input type="email" class="form-control" name="oemail" value="{{details.oemail}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="rollnumber">Personal Email</label>
-                            <input type="email" class="form-control" name="pemail" value="{{details.pmeail}}">
-                        </div>
-                        <div class="
-                    form-group">
-                            <label for="tel">Phone</label>
-                            <input type="tel" name="phone" class="form-control" name="phone" value="{{details.phone}}"
-                                required>
-                        </div>
-                        <div class="form-group">
-                            <label for="workingat"><b>Working At (Mention as NA if not applicable)</b></label>
-                            <input type="text" value="{{details.workingat}}" class="form-control" name="roll" placeholder="Woriking At">
-                        </div>
-                        <input type="submit" class="btn btn-primary" name="Update" id="">
-
-
-
-                    </form>
-                </div>
+          <!------Sidebar---------->
+          <div class=" col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
+            <a href="#" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 bottom-border"></a>
+            <div class="bottom-border pb-3">
+              <img src="http://res.cloudinary.com/dfqddpjfl/image/upload/v1494008772/woman1_nr8qgi.jpg" width="50"
+                class="rounded-circle mr-3">
+              <a href="#" class="text-white">{{name}}</a>
             </div>
+            <ul class="navbar-nav flex-column mt-4">
+              <li class="nav-item"><a href="{% url 'welcome' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-home text-light fa-lg mr-3"></i>Home</a></li>
+              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-user text-light fa-lg mr-3"></i>Alumni List</a></li>
+              <li class="nav-item"><a href="{% url 'notification_history' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-envelope text-light fa-lg mr-3"></i>News and Events</a></li>
+              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-id-card text-light fa-lg mr-3"></i>Job Opportunities</a></li>
+              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-envelope text-light fa-lg mr-3"></i>Message</a></li>
+              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-user text-light fa-lg mr-3"></i>Interview Experience</a></li>
+              <li class="nav-item"><a href="{% url 'profile' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-user text-light fa-lg mr-3"></i>Create Profile</a></li>
+              <li class="nav-item"><a href="{% url 'update_profile' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-id-card text-light fa-lg mr-3"></i>Update Profile</a></li>
+              
+              <!-- <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i class="fas fa-file-alt text-light fa-lg mr-3"></i></a></li> -->
+            </ul>
+          </div>
+          <!------End of Sidebar--->
+
+          <!------Top nav---------->
+          <div class=" col-xl-10 col-lg-9 col-md-8 ml-auto bg-dark fixed-top py-2 top-navbar">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <h4 class="text-light text-uppercase mb-0">Alumni Hub</h4>
+              </div>
+              <div class="col-md-5">
+
+
+              </div>
+              <div class="col-md-3">
+                <ul class="navbar-nav">
+                  <li class="nav-item ml-md-auto"><a href="#" class="nav-link" data-toggle="modal"
+                      data-target="#sign-out"><i class="fas fa-sign-out-alt text-danger fa-lg"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <div>
+            </div>
+          </div>
+          <!------End of Top Nav--->
+        </div>
+  </nav>
+  <!------End of Navbar--->
+
+  <!------Modal--->
+  <div class="modal fade" id="sign-out">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Wat to sign out?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;
+
+          </button>
+        </div>
+        <div class="modal-body">
+          Log out
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Stay Here</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Log out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!------End of Modal--->
+
+  <!------Cards--->
+  
+
+  <section>
+
+    <div class="container-fluid">
+      <div class="row mb-10">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+          <div class="row">
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+              <h3 class="text-muted text-center mb-3">Alumni List</h3>
+              <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="firstname">First Name</label>
+                        <input type="text" class="form-control" name="firstname" value="{{details.firstname}}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Last Name</label>
+                        <input type="text" class="form-control" name="lastname" value="{{details.lastname}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="batch"><b>Batch</b></label>
+                    <input type="text" class="form-control" name="batch" value="{{details.batch}}">
+                </div>
+            
+                </script>
+                <div class="form-group">
+                    <label for="rollnumber">Roll Number</label>
+                    <input type="text" class="form-control" name="rollnumber" value="{{details.roll}}">
+                </div>
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <input type="text" class="form-control" name="department" value="{{details.department}}">
+                </div>
+                <div class="form-group">
+                    <label for="rollnumber">Official Email</label>
+                    <input type="email" class="form-control" name="oemail" value="{{details.oemail}}">
+                </div>
+                <div class="form-group">
+                    <label for="rollnumber">Personal Email</label>
+                    <input type="email" class="form-control" name="pemail" value="{{details.pmeail}}">
+                </div>
+                <div class="
+            form-group">
+                    <label for="tel">Phone</label>
+                    <input type="tel" name="phone" class="form-control" name="phone" value="{{details.phone}}"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="workingat"><b>Working At (Mention as NA if not applicable)</b></label>
+                    <input type="text" value="{{details.workingat}}" class="form-control" name="workingat" placeholder="Woriking At">
+                </div>
+                <input type="submit" class="btn btn-primary" name="Update" id="">
+
+
+
+            </form>
+
+              
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+        
+    
+    <!------Pagination--->
+
+    <!------End of Footer--->
 
 
 
 
 
-        </div><!-- Main Col END -->
-
-    </div><!-- body-row END -->
-
-
-    </div><!-- container -->
-
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
-
-
-
 <style>
-    @import url('https://fonts.googleapis.com/css?family=Montserrat');
-
-    /*-------------------------------- END ----*/
-    #body-row {
-        margin-left: 0;
-        margin-right: 0;
+  body {
+    font-family: 'Montserrat', sans-serif;
+    /* background-color: rgb(255, 255, 255); */
     }
 
-    #sidebar-container {
-        min-height: 100vh;
-        background-color: #132644;
-        padding: 0;
-        /* flex: unset; */
+  /* Navbar */
+  .sidebar {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .9)), url(images/img1.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* box-shadow: 5px 7px 25px #999; */
+  }
+
+  .bottom-border {
+    border-bottom: 1px groove #eee;
+  }
+
+  .sidebar-link:hover {
+    background-color: #444;
+    border-radius: 5px;
+  }
+
+  .sidebar-link {
+    transition: all .4s;
+  }
+
+  .current {
+    background-color: #f44336;
+    border-radius: 7px;
+    box-shadow: 2px 5px 10px #111;
+    transition: all .3s;
+  }
+
+  .current:hover {
+    background-color: #f66436;
+    border-radius: 7px;
+    box-shadow: 2px 5px 20px #111;
+    transform: translate(-1px);
+  }
+
+  .search-input {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #999;
+    transition: all 0.4s;
+  }
+
+  .search-input:focus {
+    background: transparent;
+    box-shadow: none;
+    border-bottom: 2px solid #dc3545;
+  }
+
+  .search-button {
+    border-radius: 50%;
+    padding: 10px 16px;
+    transition: all .4s;
+  }
+
+  .search-button:hover {
+    background-color: #eee;
+    transform: translate(-1px);
+  }
+
+  .icon-parent {
+    position: relative;
+  }
+
+  .icon-bullet ::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 15px;
+    height: 12px;
+    width: 12px;
+    background-color: #f44336;
+    border-radius: 50%;
+  }
+
+  @media(max-width: 768px) {
+    .sidebar {
+      position: static;
+      height: auto;
     }
 
-    .sidebar-expanded {
-        width: 230px;
+    .top-navbar {
+      position: static;
     }
+  }
 
-    .sidebar-collapsed {
-        /*width: 60px;*/
-        width: 100px;
-    }
+  /* End of Navbar */
 
-    /* ----------| Menu item*/
-    #sidebar-container .list-group a {
-        height: 50px;
-        color: white;
-    }
+  /* Cards */
+  .card-common {
+    box-shadow: 1px 2px 5px #999;
+    transition: all .4s;
+  }
 
-    /* ----------| Submenu item*/
-    #sidebar-container .list-group li.list-group-item {
-        background-color: #132644;
-    }
+  .card-common:hover {
+    box-shadow: 2px 3px 15px #999;
+    transform: translateY(-1px);
 
-    #sidebar-container .list-group .sidebar-submenu a {
-        height: 45px;
-        padding-left: 30px;
-    }
+  }
 
-    .sidebar-submenu {
-        font-size: 0.9rem;
-    }
+  /* End of Cards */
 
-    /* ----------| Separators */
-    .sidebar-separator-title {
-        background-color: #132644;
-        height: 35px;
-    }
+  /* Task-list */
+  .task-border {
+    border-left: 3px solid #f66346
+  }
 
-    .sidebar-separator {
-        background-color: #132644;
-        height: 25px;
-    }
-
-    .logo-separator {
-        background-color: #132644;
-        height: 60px;
-    }
-
-    a.bg-dark {
-        background-color: #132644 !important;
-    }
+  /* End of Task-list */
 </style>
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
+
 
 </html>

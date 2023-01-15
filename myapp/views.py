@@ -128,6 +128,27 @@ def profile(request,session_id):
 
 def update_profile(request,session_id):
     result=database.child("users").child(session_id).child("details").get().val()
+    if result is None:
+        message="Profile does not exist!"
+        return render(request,"welcome_msg.html",{'message':message,'session_id':session_id})
+
+    else:
+        if request.method=="POST":
+            roll=request.POST.get('rollnumber')
+            firstname=request.POST.get('firstname')
+            lastname=request.POST.get('lastname')
+            phone=request.POST.get('phone')
+            batch=request.POST.get('batch')
+            pemail=request.POST.get('pemail')
+            oemail=request.POST.get('oemail')
+            department=request.POST.get('department')
+            print(department)
+            print(roll)
+            print(batch)
+            workingat=request.POST.get('workingat')
+            data={'firstname':firstname,'roll':roll,'lastname':lastname,'phone':phone,'batch':batch,'pmeail':pemail,'oemail':oemail,'department':department,'workingat':workingat}
+            database.child("users").child(session_id).child("details").set(data)
+
     context={'session_id':session_id,'details':result}
     return render(request,"update_profile.html",context)
 
@@ -400,21 +421,34 @@ def alumni_notification(request,session_id):
     return render(request,"alumni/alumni_notification.html",context)
 
 def students_list(request,session_id):
-    list=[]
-    result = database.child("users").get().val()
-    for i in result.keys():
-            if(result[i]['report']['role'] == "student"):
-                list.append(result[i]['details']) 
+    final_list=[]
+    if request.method=="POST":
+        batch=request.POST.get('batch')
+        print(batch)
+        result=database.child("users").get().val()
+        print(result)
+        for i in result.keys():
+            if(result[i]['details']['batch'] == batch):
+                final_list.append(result[i]['details'])
+        print("the final")
+        print(final_list)
+    not_list = sorted(final_list,key= lambda x : x["roll"])
 
-    context={'session_id':session_id,'result':result}
+    context={'session_id':session_id,'not_list':not_list}
     return render(request,'alumni/students_list.html',context)
+
+def alumni_detailcard(request,session_id,roll,firstname,lastname,batch,oemail,pemail,phone,workingat):
+
+    context={'roll':roll,'firstname':firstname,'lastname':lastname,'batch':batch,'oemail':oemail,'pemail':pemail,'phone':phone,'session_id':session_id,'workingat':workingat}
+    return render(request,"alumni/alumni_detailcard.html",context)
 
 def alumni_profile(request,session_id):
     result= database.child("users").child(session_id).child("details").get().val()
     print(result)
     if result is not None:
         message="your profile is being already created"
-        return render(request,"welcome_msg.html",{'message':message,'session_id':session_id})
+        return render(request,"alumni/alumni_mainpage.html",{'message':message,'session_id':session_id})
+
     else: 
         if request.method=="POST":
             roll=request.POST.get('roll_number')
@@ -436,6 +470,33 @@ def alumni_profile(request,session_id):
     context={'session_id':session_id}
     return render(request,"alumni/alumni_profileset.html",context)
 
+def alumni_updateprofile(request,session_id):
+    result=database.child("users").child(session_id).child("details").get().val()
+    if result is None:
+        message="Profile does not exist!"
+        return render(request,"alumni/alumni_mainpage.html",{'message':message,'session_id':session_id})
+
+    else:
+        if request.method=="POST":
+            roll=request.POST.get('rollnumber')
+            firstname=request.POST.get('firstname')
+            lastname=request.POST.get('lastname')
+            phone=request.POST.get('phone')
+            batch=request.POST.get('batch')
+            pemail=request.POST.get('pemail')
+            oemail=request.POST.get('oemail')
+            department=request.POST.get('department')
+            print(department)
+            print(roll)
+            print(batch)
+            workingat=request.POST.get('workingat')
+            data={'firstname':firstname,'roll':roll,'lastname':lastname,'phone':phone,'batch':batch,'pmeail':pemail,'oemail':oemail,'department':department,'workingat':workingat}
+            database.child("users").child(session_id).child("details").set(data)
+            resul=database.child("users").child(session_id).child("details").get().val()
+            return render(request,"alumni/alumni_updateprofile.html",{'session_id':session_id,'details':resul})
+
+    context={'session_id':session_id,'details':result}
+    return render(request,"alumni/alumni_updateprofile.html",context)
 
 def notification_detail(request,description,title,att,startdate,enddate):
     print(description)
@@ -486,3 +547,7 @@ def alumni_job(request,session_id):
 
     context={'session_id':session_id}
     return render(request,"alumni/alumni_job",context)
+
+def chatapp(request):
+
+    return render(request,"chat/chatapp.html")
