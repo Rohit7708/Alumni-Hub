@@ -206,7 +206,7 @@
                       <center>
                         <h5 class="card-title">Title: {{i.title}}</h5>
                       </center>
-                      <a href="" class="btn btn-primary">View more</a>
+                      <a href="{% url 'st_notification_detail' session_id i.title i.startdate i.enddate i.description i.attachment %}" class="btn btn-primary">View more</a>
                     </div>
                   </div>
               </div>

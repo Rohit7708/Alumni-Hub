@@ -26,12 +26,14 @@ urlpatterns = [
     path('notification_history/<session_id>/',views.notification_history,name="notification_history"),
     path('alumni_notification/<session_id>/',views.alumni_notification,name="alumni_notification"),
     path('jobs/<session_id>/',views.jobs,name="jobs"),
-    path('st_notification_detail/<session_id>/<description>/<title>/<att>/<startdate>/<enddate>/',views.notification_detail_student,name="st_notification_detail"),
+    path('st_notification_detail/<session_id>/<title>/<startdate>/<enddate>/<description>/<attachment>/',views.notification_detail_student,name="st_notification_detail"),
     path('notification_detail/<description>/<title>/<att>/<startdate>/<enddate>/',views.notification_detail,name="notification_detail"),
     path('al_event_notify/<session_id>/',views.al_event_notify,name="al_event_notify"),
     path('alumni_job/<session_id>/',views.alumni_job,name="alumni_job"),
     path('detail_card/<session_id>/<roll>/<firstname>/<lastname>/<batch>/<oemail>/<pemail>/<phone>/',views.profile_card,name="detail_card"),
     path('st_event_notify/<session_id>/',views.create_notification,name="st_event_notify"),
-    path('chatapp/',views.chatapp,name="chatapp"),
-
+    path('roll/<session_id>/',views.get_rollnumber,name="roll"),
+    path('chat/<session_id>/<sender>/<receiver>/',views.chat,name="chat"),
+    path('send',views.send,name="send"),
+    path('getMessages/<receiver>/<sender>/',views.getMessages,name='getMessages'),
 ]

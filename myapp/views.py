@@ -1,11 +1,17 @@
 from django.shortcuts import render,redirect
-from datetime import datetime
+import time
+from datetime import datetime,timezone
+import pytz
 from django.utils import timezone
 import uuid
 import pyrebase
 import smtplib
 from email.message import EmailMessage
-from datetime import date
+from django.http import JsonResponse,HttpResponse
+import json
+
+from .models import *
+
 
 # Create your views here.
 config = {
@@ -170,9 +176,9 @@ def alumnilist(request,session_id):
     return render(request,"alumni_list.html",context)
 
 
-def notification_detail_student(request,session_id,description,title,att,startdate,enddate):
+def notification_detail_student(request,session_id,title,startdate,enddate,description,attachment):
 
-    context={'session_id':session_id,'description':description,'title':title,'att':att,'startdate':startdate,'enddate':enddate}
+    context={'session_id':session_id,'title':title,'startdate':startdate,'enddate':enddate,'description':description,'attachment':attachment}
     return render(request,"st_notification_detail.html",context)
 
 def create_notification(request,session_id):
@@ -548,6 +554,87 @@ def alumni_job(request,session_id):
     context={'session_id':session_id}
     return render(request,"alumni/alumni_job",context)
 
-def chatapp(request):
+def get_rollnumber(request,session_id):
+    sender = None
+    result=database.child("users").get().val()
+    for i in result.keys():
+        if(i == session_id):
+            sender=result[i]["details"]["roll"]
+    
+    if request.method=="POST":
+        receiver=request.POST.get('rollnumber')
+        if Room.objects.filter(name=receiver).exists():
+            return redirect('chat',session_id,sender,receiver)
+        else:
+            new_room = Room.objects.create(name=receiver)
+            new_room.save()
+            print("new chat room created")
+            return redirect('chat',session_id,sender,receiver)
+            
+    context={'session_id':session_id}
+    return render(request,"chat/roll.html",context)
 
-    return render(request,"chat/chatapp.html")
+def chat(request,session_id,sender,receiver):
+    
+    
+    
+
+    # messages=[]
+
+    # if request.method=="POST":
+    #     text=request.POST.get('messagebox')
+    #     now = datetime.now()
+    #     current_time = now.strftime("%H:%M:%S")
+    #     msg = {
+    #         'text': text,
+    #         'timestamp': time.time(),
+    #         'sender': sender,
+    #         'receiver': receiver,
+    #         'session_id': session_id
+    #     }
+    #     database.child("messages").child(session_id).child(current_time).set(msg)        
+    # msg = database.child("messages").child(session_id).get().val()
+    # if msg is not None:
+    #     for i in msg.keys():
+    #         if msg[i]["sender"]==sender and msg[i]["receiver"]==receiver:
+    #             messages.append(msg[i])
+
+    # else:
+    #     print("No")
+    # messages = sorted(messages,key= lambda x : x["timestamp"],reverse=True)
+    # print(messages)
+    context={'session_id':session_id,'sender':sender,'receiver':receiver}
+    return render(request,"chat/chat.html",context)
+
+def send(request):
+    username=request.POST.get('username')
+    room_id=request.POST.get('room_id')
+    message=request.POST.get('message')
+    new_message = Message.objects.create(body=message, msg_sender=username, msg_reciver=room_id)
+    new_message.save()
+
+    return HttpResponse('Message sent successfully')
+
+def getMessages(request,receiver,sender):
+    room_details = Room.objects.get(name=receiver)
+    room_detail = Room.objects.get(name=sender)
+    print(room_detail)
+
+    messages1 = Message.objects.filter(msg_reciver=receiver)
+    messages2 = Message.objects.filter(msg_reciver=sender)
+
+    message3 = Message.objects.filter(msg_sender=receiver)
+    message4 = Message.objects.filter(msg_sender=sender)
+    print(messages2)
+    join_messages= messages1|messages2|message3|message4
+    messages = join_messages.order_by('date')
+    print(messages)
+
+    return JsonResponse({"message":list(messages.values())})
+
+def job_post(request):
+
+    return render(request,"alumni/job_post.html"
+    )
+
+

@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    
+      
 ]
 
 
@@ -69,8 +71,8 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'pracitice.wsgi.application'
-ASGI_APPLICATION = 'myproject.asgi.application'
+WSGI_APPLICATION = 'pracitice.wsgi.application'
+# ASGI_APPLICATION = 'pracitice.asgi.application'
 
 
 STATIC_URL = '/static/'

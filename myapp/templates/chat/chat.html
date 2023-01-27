@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Chat Application</title>
+  <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <style>
+    /* custom styles for the chat application */
+    body{
+      background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(81,79,233,1) 45%, rgba(82,166,224,1) 81%, rgba(0,212,255,1) 100%);
+    }
+    .chat-window {
+      height: 500px;
+      overflow-y: scroll;
+      
+
+    }
+
+    .chat-message {
+      margin-bottom: 10px;
+    }
+
+    .sent {
+      background-color: #ddd;
+      text-align: right;
+    }
+
+    .received {
+      background-color: #eee;
+      text-align: left;
+    }
+    .msger-inputarea * {
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  font-size: 1em;
+}
+.msger-input {
+  flex: 1;
+  background: #ddd;
+}
+.msger-send-btn {
+  margin-left: 10px;
+  background: rgb(0, 196, 65);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.23s;
+}
+.msger-send-btn:hover {
+  background: rgb(0, 180, 50);
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-8 offset-2">
+        <div class="card">
+          <div class="card-header bg-danger">
+            <center><b>{{receiver}}</b></center>
+            
+          </div>
+          <div class="card-body chat-window" id="display">
+      
+              <!-- messages will be added here dynamically -->
+
+              
+
+
+            
+          </div>
+          <div class="card-footer">
+            <form class="msger-inputarea" id="post_form" method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="username" id="username" value="{{sender}}">
+                <input type="hidden" name="room_id" id="room_id" value="{{receiver}}">
+              <input type="text" class="msger-input" name="message" id="message" placeholder="Enter your message..." required>
+              <input type="submit" name="submit" class="msger-send-btn" id="">
+              
+              </form>
+
+            <!-- <form id="post_form">
+              {% csrf_token %}
+              <div class="form-group">
+                <input type="hidden" name="username" id="username" value="{{sender}}">
+                <input type="hidden" name="room_id" id="room_id" value="{{receiver}}">
+                <input type="text" name="message" id="message" required>
+              </div>
+              <input type="submit" name="submit" id="" onclick="newChatMessage()">
+            </form> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</body>
+<script>
+
+  $(document).ready(function () {
+
+    setInterval(function () {
+      $.ajax({
+        type: 'GET',
+        url: "/getMessages/{{receiver}}/{{sender}}/",
+        success: function (response) {
+          console.log(response["message"]);
+          $("#display").empty();
+          for (var key in response["message"]) {
+            // var temp = "<div class= msg-bubble><div class= msg-info><div class= msg-info-name><b>" + response["message"][key]["msg_sender"] +"</b></div><div class=msg-info-time>"+ response["message"][key]["date"] +"</div></div><div class=msg-text>" + response["message"][key]["body"] +"</div></div>"
+
+          var temp = "<div class='msg-text'><b>" + response["message"][key]["msg_sender"] +"</b>----------" + response["message"][key]["date"] + "<p>" + response["message"][key]["body"] + "</p><span class='time-left'> </span></div>";
+            console.log(response["message"][key]["date"])
+             $("#display").append(temp)     
+             var chatWindow = document.getElementById("display");
+                chatWindow.scrollTop = chatWindow.scrollHeight;        
+          }
+        },
+        error: function (response) {
+          // alert('An error occured')
+        }
+        
+      });
+      
+      
+    }, 1000);
+  })
+</script>
+<script type="text/javascript">
+  $(document).on('submit', '#post_form', function (e) {
+    e.preventDefault();
+
+    $.ajax({
+      type: 'POST',
+      url: '/send',
+      data: {
+        username: $('#username').val(),
+        room_id: $('#room_id').val(),
+        message: $('#message').val(),
+        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+      },
+
+      success: function (data) {
+        //  alert(data)
+        console.log('success', data)
+
+      }
+    });
+    document.getElementById('message').value = ''
+  });
+</script>
+
+</html>
