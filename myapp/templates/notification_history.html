@@ -36,22 +36,22 @@
             </div>
             <ul class="navbar-nav flex-column mt-4">
               <li class="nav-item"><a href="{% url 'welcome' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                    class="fas fa-home text-light fa-lg mr-3"></i>Home</a></li>
-              <li class="nav-item"><a href="{% url 'alumni_list' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                    class="fas fa-user text-light fa-lg mr-3"></i>Alumni List</a></li>
-              <li class="nav-item"><a href="{% url 'notification_history' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                    class="fas fa-envelope text-light fa-lg mr-3"></i>News and Events</a></li>
-              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
-                    class="fas fa-id-card text-light fa-lg mr-3"></i>Job Opportunities</a></li>
-              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
-                    class="fas fa-envelope text-light fa-lg mr-3"></i>Message</a></li>
-              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
-              class="fas fa-user text-light fa-lg mr-3"></i>Interview Experience</a></li>
-              <li class="nav-item"><a href="{% url 'profile' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                    class="fas fa-user text-light fa-lg mr-3"></i>Create Profile</a></li>
-              <li class="nav-item"><a href="{% url 'update_profile' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                    class="fas fa-id-card text-light fa-lg mr-3"></i>Update Profile</a></li>
-              
+                class="fas fa-home text-light fa-lg mr-3"></i>Home</a></li>
+          <li class="nav-item"><a href="{% url 'alumni_list' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                class="fas fa-user text-light fa-lg mr-3"></i>Alumni / Students Records</a></li>
+          <li class="nav-item"><a href="" class="nav-link text-white p-2 mb-2"><i
+                class="fas fa-envelope text-light fa-lg mr-3"></i>News and Events</a></li>
+          <li class="nav-item"><a href="{% url 'jobs' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                class="fas fa-id-card text-light fa-lg mr-3"></i>Job Opportunities</a></li>
+          <li class="nav-item"><a href="{% url 'roll' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                class="fas fa-envelope text-light fa-lg mr-3"></i>Message</a></li>
+          <li class="nav-item"><a href="{% url 'interview_exp' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                class="fas fa-user text-light fa-lg mr-3"></i>Interview Experience</a></li>
+                <li class="nav-item"><a href="{% url 'category' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                  class="fas fa-user text-light fa-lg mr-3"></i>Quiz</a></li>
+          <li class="nav-item"><a href="{% url 'update_profile' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                class="fas fa-id-card text-light fa-lg mr-3"></i>Update Profile</a></li>
+
               <!-- <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i class="fas fa-file-alt text-light fa-lg mr-3"></i></a></li> -->
             </ul>
           </div>
@@ -83,107 +83,119 @@
   <!------End of Navbar--->
 
   <!------Modal--->
-  <div class="modal fade" id="sign-out">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Wat to sign out?</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;
+  <div class="" id="cards">
+    <div class="modal fade" id="sign-out">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Wat to sign out?</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;
 
-          </button>
-        </div>
-        <div class="modal-body">
-          Log out
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-dismiss="modal">Stay Here</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Log out</button>
+            </button>
+          </div>
+          <div class="modal-body">
+            Log out
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Stay Here</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Log out</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!------End of Modal--->
+    <!------End of Modal--->
 
-  <!------Cards--->
-  <section class="">
-    <div class="container-fluid">
-      <div class="row">
-        <div class=" col-xl-10 col-lg-9 col-md-8 ml-auto">
-          <div class="row pt-md-5 mt-md-3 mb-5">
-            <div class="col-xl-3 col-sm-6 p-2">
-              <div class="card card-common">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                    <i class="fas fa-calendar fa-3x text-warning"></i>
-                    <div class="text-right text-secondary">
-                      <h6>My Notifications</h6>
-                      <h3></h3>
+    <!------Cards--->
+    <section class="">
+      <div class="container-fluid">
+        <div class="row">
+          <div class=" col-xl-10 col-lg-9 col-md-8 ml-auto">
+            <div class="row pt-md-5 mt-md-3 mb-5">
+              <div class="col-xl-3 col-sm-6 p-2">
+                <div class="card card-common">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <i class="fas fa-calendar fa-3x text-warning"></i>
+                      <div class="text-right text-secondary">
+                        <h6>My Notifications</h6>
+                        <h3></h3>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="card-footer text-secondary">
-                  <i class="fas fa-sync mr-3"></i>
-                  <button class="btn-primary" id="my-submit">Click Here</button>
+                  <div class="card-footer text-secondary">
+                    <i class="fas fa-sync mr-3"></i>
+                    <button class="btn-primary" id="my-submit">Click Here</button>
 
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 p-2">
-              <div class="card card-common">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                    <i class="fas fa-calendar fa-3x text-success"></i>
-                    <div class="text-right text-secondary">
-                      <h6>Alumni Notifications</h6>
-                      <h3></h3>
-                    </div>
                   </div>
                 </div>
-                <div class="card-footer text-secondary">
-                  <i class="fas fa-sync mr-3"></i>
-                  <button class="btn-primary" id="al-submit">Click Here</button>
-                </div>
               </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 p-2">
-              <div class="card card-common">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                    <i class="fas fa-calendar fa-3x text-info"></i>
-                    <div class="text-right text-secondary">
-                      <h6>Students Notification</h6>
-                      <h3></h3>
+              <div class="col-xl-3 col-sm-6 p-2">
+                <div class="card card-common">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <i class="fas fa-calendar fa-3x text-success"></i>
+                      <div class="badge green">{{fl_not_count}}</div>
+                      <div class="text-right text-secondary">
+                        <h6>Faculty Notifications</h6>
+                        <h3></h3>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="card-footer text-secondary">
-                  <i class="fas fa-sync mr-3"></i>
-                  <button class="btn-primary" id="st-submit">Click Here</button>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 p-2">
-              <div class="card card-common bg-success">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                    <i class="fas fa-pencil-alt fa-3x text-danger"></i>
-                    <div class="text-right text-dark">
-                      <h5><b>Push Notification</b></h5>
-                      <h3></h3>
-                    </div>
+                  <div class="card-footer text-secondary">
+                    <i class="fas fa-sync mr-3"></i>
+                    <button class="btn-primary" id="fl-submit">Click Here</button>
                   </div>
                 </div>
+              </div>
+              <div class="col-xl-3 col-sm-6 p-2">
+                <div class="card card-common">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <i class="fas fa-calendar fa-3x text-success"></i>
+                      <div class="badge green">{{al_not_count}}</div>
+                      <div class="text-right text-secondary">
+                        <h6>Alumni Notifications</h6>
+                        <h3></h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer text-secondary">
+                    <i class="fas fa-sync mr-3"></i>
+                    <button class="btn-primary" id="al-submit">Click Here</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-sm-6 p-2">
+                <div class="card card-common">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <i class="fas fa-calendar fa-3x text-info"></i>
+                      <div class="badge green">{{st_not_count}}</div>
+                      <div class="text-right text-secondary">
+                        <h6>Students Notification</h6>
+                        <h3></h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer text-secondary">
+                    <i class="fas fa-sync mr-3"></i>
+                    <button class="btn-primary" id="st-submit">Click Here</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-sm-6 p-2">
+
                 <div class="card-footer text-secondary">
                   <i class="fas fa-sync mr-3"></i>
-                  <button class="btn-danger" id="push-submit">Click Here</button>
+                  <button class="btn-danger" id="push-submit">Push Notification</button>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
   <!------End of Cards--->
 
   <!------Tables--->
@@ -200,13 +212,46 @@
                   {% for i in not_list %}
                   <div class="card">
                     <div class="card-header">
+                      Posted on: {{i.date}} Time: {{i.time}}
+                    </div>
+                    <div class="card-body">
+                      <center>
+                        <h5 class="card-title">Title: {{i.title}}</h5>
+                      </center>
+                      <a href="{% url 'st_notification_detail' session_id i.id i.title i.startdate i.enddate i.description %}"
+                        class="btn btn-primary">View more</a>
+                    </div>
+                  </div>
+              </div>
+              <br>
+              {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="Faculty_notification">
+    <section>
+      <div class="container-fluid">
+        <div class="row mb-5">
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+            <div class="row">
+              <div class="col-12 mb-4">
+                <h3 class="text-muted text-center mb-3">Faculty Notifications</h3>
+
+                <table>
+                  {% for i in fl_notification_list %}
+                  <div class="card">
+                    <div class="card-header">
                       Posted on: {{i.date}}        Time: {{i.time}}
                     </div>
                     <div class="card-body">
                       <center>
                         <h5 class="card-title">Title: {{i.title}}</h5>
                       </center>
-                      <a href="{% url 'st_notification_detail' session_id i.title i.startdate i.enddate i.description i.attachment %}" class="btn btn-primary">View more</a>
+                      <a href="{% url 'st_notification_detail' session_id i.id i.title i.startdate i.enddate i.description %}" class="btn btn-primary">View more</a>
                     </div>
                   </div>
               </div>
@@ -232,12 +277,14 @@
                   {% for i in st_notification_list %}
                   <div class="card">
                     <div class="card-header">
-                      Posted on: {{i.date}}            Time: {{i.time}}
+                      Posted on: {{i.date}} Time: {{i.time}}
                     </div>
                     <div class="card-body">
-                      <center><h5 class="card-title">Title: {{i.title}}</h5></center>
+                      <center>
+                        <h5 class="card-title">Title: {{i.title}}</h5>
+                      </center>
                       <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
-                      <a href="#" class="btn btn-primary">View more</a>
+                      <a href="{% url 'st_notification_detail' session_id i.id i.title i.startdate i.enddate i.description %}" class="btn btn-primary">View more</a>
                     </div>
                   </div>
               </div>
@@ -263,12 +310,14 @@
                   {% for i in my_list %}
                   <div class="card">
                     <div class="card-header">
-                      Posted on: {{i.date}}            Time: {{i.time}}
+                      Posted on: {{i.date}} Time: {{i.time}}
                     </div>
                     <div class="card-body">
-                      <center><h5 class="card-title">Title: {{i.title}}</h5></center>
+                      <center>
+                        <h5 class="card-title">Title: {{i.title}}</h5>
+                      </center>
                       <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
-                      <a href="#" class="btn btn-primary">View more</a>
+                      <a href="{% url 'st_notification_detail' session_id i.id i.title i.startdate i.enddate i.description %}" class="btn btn-primary">View more</a>
                     </div>
                   </div>
               </div>
@@ -287,7 +336,12 @@
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
           <div class="row">
             <div class="col-12 mb-4">
+              <br>
+              <br>
               <h3 class="text-muted text-center mb-3">Fill the event details</h3>
+              <button type="button" id="close" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
               <form method="POST">
                 {% csrf_token %}
                 <div class="form-group">
@@ -344,6 +398,28 @@
     <script src="script.js"></script>
 </body>
 <style>
+  .green {
+  background: #26b960;
+}
+  .badge {
+  position: absolute;
+  top: -16px;
+  right: -18px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 38px;
+  height: 38px;
+  padding: 1px 10px 0 10px;
+  border: 3px solid #f4fdff;
+  border-radius: 500px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  z-index: 1;
+  transition: transform 0.15s, background-color 0.5s;
+}
   body {
     font-family: 'Montserrat', sans-serif;
     background-color: #eee;
@@ -459,6 +535,8 @@
   }
 
   /* End of Task-list */
+
+  
 </style>
 <script>
   $(document).ready(function () {
@@ -474,12 +552,17 @@
   const alumni_notification = document.querySelector('.Alumni_notification')
   const my_notification = document.querySelector('.my_notification')
   const event_details = document.querySelector('.event_details')
+  const roles = document.querySelector('#cards')
+  const close = document.querySelector('#close')
+  const Faculty_notification = document.querySelector('.Faculty_notification')
+  const fl_submit = document.querySelector('#fl-submit')
 
   window.onload = () => {
     student_notification.style.display = 'none'
     alumni_notification.style.display = 'none'
     my_notification.style.display = 'none'
     event_details.style.display = 'none'
+    Faculty_notification.style.display = 'none'
   }
 
   my_submit.addEventListener('click', () => {
@@ -487,24 +570,44 @@
     alumni_notification.style.display = 'none'
     my_notification.style.display = 'block'
     event_details.style.display = 'none'
+    Faculty_notification.style.display = 'none'
   })
   alumni_submit.addEventListener('click', () => {
     student_notification.style.display = 'none'
     alumni_notification.style.display = 'block'
     my_notification.style.display = 'none'
     event_details.style.display = 'none'
+    Faculty_notification.style.display = 'none'
   })
   student_submit.addEventListener('click', () => {
     student_notification.style.display = 'block'
     alumni_notification.style.display = 'none'
     my_notification.style.display = 'none'
     event_details.style.display = 'none'
+    Faculty_notification.style.display = 'none'
   })
   push_submit.addEventListener('click', () => {
     student_notification.style.display = 'none'
     alumni_notification.style.display = 'none'
     my_notification.style.display = 'none'
     event_details.style.display = 'block'
+    roles.style.display = 'none'
+    Faculty_notification.style.display = 'none'
+  })
+  close.addEventListener('click', () => {
+    student_notification.style.display = 'none'
+    alumni_notification.style.display = 'none'
+    my_notification.style.display = 'none'
+    event_details.style.display = 'none'
+    roles.style.display = 'block'
+    Faculty_notification.style.display = 'none'
+  })
+  fl_submit.addEventListener('click', () => {
+    student_notification.style.display = 'none'
+    alumni_notification.style.display = 'none'
+    my_notification.style.display = 'none'
+    event_details.style.display = 'none'
+    Faculty_notification.style.display = 'block'
   })
 
 </Script>

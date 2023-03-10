@@ -10,6 +10,8 @@
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-2Q9Xix+RZ2tWFX7V4P+XP/sA7VunfuHlW1hVLlS9d9+7VZC0Plm8zLy+uc3TJ3d46aTmNJ0JDa+7O9JhQ0R7xQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
     /* custom styles for the chat application */
     body{
@@ -48,14 +50,15 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(81,79,233,1) 45%, rgb
 }
 .msger-send-btn {
   margin-left: 10px;
-  background: rgb(0, 196, 65);
+  background: rgb(11, 170, 64);
   color: #fff;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.23s;
+  
 }
 .msger-send-btn:hover {
-  background: rgb(0, 180, 50);
+  background: rgb(0, 255, 72);
 }
 
   </style>
@@ -66,7 +69,7 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(81,79,233,1) 45%, rgb
     <div class="row">
       <div class="col-8 offset-2">
         <div class="card">
-          <div class="card-header bg-danger">
+          <div class="card-header">
             <center><b>{{receiver}}</b></center>
             
           </div>
@@ -84,8 +87,15 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(81,79,233,1) 45%, rgb
               {% csrf_token %}
               <input type="hidden" name="username" id="username" value="{{sender}}">
                 <input type="hidden" name="room_id" id="room_id" value="{{receiver}}">
-              <input type="text" class="msger-input" name="message" id="message" placeholder="Enter your message..." required>
-              <input type="submit" name="submit" class="msger-send-btn" id="">
+                <div class="row">
+                  <div class="col-md-11">
+                    <input type="text" class="form-control" name="message" id="message" placeholder="Enter your message..." required style="border: 1px solid #ced4da;">
+                  </div>
+                  <div class="col-md-1">
+                    <input type="submit" name="" value="Send" class="btn btn-success float-right">
+                  </div>
+                </div>
+                
               
               </form>
 
@@ -117,9 +127,9 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(81,79,233,1) 45%, rgb
           console.log(response["message"]);
           $("#display").empty();
           for (var key in response["message"]) {
-            // var temp = "<div class= msg-bubble><div class= msg-info><div class= msg-info-name><b>" + response["message"][key]["msg_sender"] +"</b></div><div class=msg-info-time>"+ response["message"][key]["date"] +"</div></div><div class=msg-text>" + response["message"][key]["body"] +"</div></div>"
 
-          var temp = "<div class='msg-text'><b>" + response["message"][key]["msg_sender"] +"</b>----------" + response["message"][key]["date"] + "<p>" + response["message"][key]["body"] + "</p><span class='time-left'> </span></div>";
+
+          var temp = "<div class='msg-text'><b>" + response["message"][key]["sender"] +"</b>----------" + response["message"][key]["timestamp"] + "<p>" + response["message"][key]["message"] + "</p><span class='time-left'> </span></div>";
             console.log(response["message"][key]["date"])
              $("#display").append(temp)     
              var chatWindow = document.getElementById("display");
@@ -127,13 +137,13 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(81,79,233,1) 45%, rgb
           }
         },
         error: function (response) {
-          // alert('An error occured')
+          
         }
         
       });
       
       
-    }, 1000);
+    }, 5000);
   })
 </script>
 <script type="text/javascript">
@@ -151,7 +161,7 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(81,79,233,1) 45%, rgb
       },
 
       success: function (data) {
-        //  alert(data)
+        //alert(data)
         console.log('success', data)
 
       }
@@ -159,5 +169,6 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(81,79,233,1) 45%, rgb
     document.getElementById('message').value = ''
   });
 </script>
+
 
 </html>

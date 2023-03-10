@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- import bootstrap cdn-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <!-- import jquery cdn -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+  <!-- import popper.js cdn -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+  <!-- import javascript cdn -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+    </script>
+</head>
+<style>
+  
+  .container {
+  background-color: #88d498;
+}
+
+</style>
+
+
+<body>
+  <!-- top navbar -->
+  <nav class="navbar navbar-expand-md navbar-light"></nav>
+  <div class=" col-xl-12 col-lg-9 col-md-8 bg-dark fixed-top py-2 top-navbar">
+    <div class="row align-items-center">
+      <div class="col-md-4">
+        <h4 class="text-light text-uppercase mb-0">Alumni Hub</h4>
+      </div>
+      <div class="col-md-5">
+
+
+      </div>
+      <div class="col-md-3">
+        <ul class="navbar-nav">
+          <li class="nav-item ml-md-auto"><a href="#" class="nav-link" data-toggle="modal"
+              data-target="#sign-out"><i class="fas fa-sign-out-alt text-danger fa-lg"></i></a></li>
+        </ul>
+      </div>
+    </div></div>
+  <!-- This container contains the sidebar
+and main content of the page -->
+  <!-- h-100 takes the full height of the body-->
+  
+
+      <!-- MAIN -->
+      <br>
+      <br>
+
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h4>Date & Time</h4>
+            <img src="https://previews.123rf.com/images/yupiramos/yupiramos1712/yupiramos171228370/92370171-clock-with-calendar-time-icon-image-vector-illustration-design.jpg" height="100px" width="100px" alt="Image">
+        <h4>{{interview_date}}</h4>
+          </div>
+          <div class="col">
+            <h4>Profile</h4>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIG53kU94qQRCycBb0323b16Lf5OCWSZc1Ww&usqp=CAU" height="100px" width="100px" alt="Image">
+            <h4>{{profile}}</h4>
+          </div>
+          <div class="col">
+            <h4>No.of Rounds</h4>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLOvHUPTvQc8JNRdeymZKZHVT9SNRwX1g1tw&usqp=CAU" height="100px" width="100px" alt="Image">
+        <h4>{{rounds}}</h4>
+          </div>
+          
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="des">
+      <div class="container">
+        <div class="row align-items-center">
+          
+          <div class="col-4"> <h4>Job Description</h4><img src="data:image/png;base64,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" height="100px" width="100px" alt="Image">
+            <p></p></div>
+          <div class="col-8">{{description}}</div>
+        </div>
+      </div>
+      </div>
+      <!-- <div class="grid grid-view">
+            
+        <div>
+        <img src="https://previews.123rf.com/images/yupiramos/yupiramos1712/yupiramos171228370/92370171-clock-with-calendar-time-icon-image-vector-illustration-design.jpg" height="100px" width="100px" alt="Image">
+        <p>Image description goes here.</p>
+    </div>
+        
+        <div>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIG53kU94qQRCycBb0323b16Lf5OCWSZc1Ww&usqp=CAU" height="100px" width="100px" alt="Image">
+        <p>Image description goes here.</p>
+        </div>
+        <div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLOvHUPTvQc8JNRdeymZKZHVT9SNRwX1g1tw&usqp=CAU" height="100px" width="100px" alt="Image">
+        <p>Image description goes here.</p>
+        </div>
+      </div>
+
+
+      
+      <style>
+        body{margin:0;}
+
+.grid {
+  position: absolute;
+  height: 100vh;
+  width:90vw;
+  display: grid;
+  grid-template-columns: 3fr 4fr 3fr;
+  grid-template-rows: 3fr 4fr 3fr;
+  grid-gap: 1em;
+}
+
+/***** extra styles */
+h1 {
+  font: 7vw Georgia;
+  grid-area: 2/2/3/4;
+  margin: auto 0 0;
+/*   width: 50vw; */
+}
+p {
+  grid-area: 3/2/4/3;
+  text-align:right;
+  font: 1.7em Georgia;
+  margin:0;
+}
+.block {
+  grid-area: 1/1/3/3;
+  background: #FFD2E5;
+}
+/************      */
+
+.grid-view div {
+  border: 1px dotted red;
+  z-index: 999;
+}
+
+.grid-view {
+  grid-column: 1/span all;
+  grid-row: 1/span all;
+}
+      </style> -->
+
+
+</html>
+
+</html>

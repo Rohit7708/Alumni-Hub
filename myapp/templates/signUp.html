@@ -52,7 +52,7 @@
 
 <form action="/postsignUp/" method="post">
 	{% csrf_token %}
-	<div class="d-flex align-items-center mb-3 pb-1">
+	<div class="d-flex align-items-center mb-5 pb-1">
 		<i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
 	  </div>
 
@@ -62,15 +62,52 @@
 		<input type="text" id="form2Example1" name="name" class="form-control form-control-lg" />
 		<label class="form-label" for="form2Example17">Username</label>
 	  </div>
-
 	  <div class="form-outline mb-4">
-		<input type="email" id="form2Example17" name="email" class="form-control form-control-lg" />
-		<label class="form-label" for="form2Example17">Email address</label>
+		<input type="text" id="form2Example1" name="firstname" class="form-control form-control-lg" />
+		<label class="form-label" for="form2Example17">First Name</label>
+	  </div>
+	  <div class="form-outline mb-4">
+		<input type="text" id="form2Example1" name="lastname" class="form-control form-control-lg" />
+		<label class="form-label" for="form2Example17">Last Name</label>
+	  </div>
+	  <div class="form-outline mb-4">
+		<input type="text" id="form2Example1" name="roll_number" class="form-control form-control-lg" />
+		<label class="form-label" for="form2Example17">Roll Number</label>
+	  </div>
+	  <div class="form-outline mb-4">
+		<input type="text" id="form2Example1" name="batch" class="form-control form-control-lg" />
+		<label class="form-label" for="form2Example17">Batch</label>
+	  </div>
+	  <div class="form-outline mb-4">
+		<label for="department">Department</label>
+		<select name="department" id="dept" class="form-control form-control-lg" required>
+		  <option value="None"><b>--Select your department--</b></option>
+		  <option value="MCA">MCA</option>
+		  <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+		  <option value="Information Technology">Information Technology</option>
+		  <option value="Mechanical Engineering">Mechanical Engineering</option>
+		  <option value="ECE">ECE</option>
+		  <option value="EEE">EEE</option>
+		</select>
+	  </div>
+
+	  
+	  <div class="form-outline mb-4">
+		<input type="email" id="form2Example17" name="oemail" class="form-control form-control-lg" />
+		<label class="form-label" for="form2Example17">Official Email address</label>
+	  </div>
+	  <div class="form-outline mb-4">
+		<input type="text" id="form2Example17" name="pemail" class="form-control form-control-lg" />
+		<label class="form-label" for="form2Example17">Personal Email address</label>
+	  </div>
+	  <div class="form-outline mb-4">
+		<input type="text" id="form2Example1" name="phone" class="form-control form-control-lg" />
+		<label class="form-label" for="form2Example17">Phone</label>
 	  </div>
 
 	  <div class="form-outline mb-4">
 		<input type="password" id="form2Example27" name="password" class="form-control form-control-lg" />
-		<label class="form-label" for="form2Example27">Password</label>
+		<label class="form-label" for="form2Example27"> Set Password</label>
 	  </div>
 
 	  <div class="form-outline mb-4">

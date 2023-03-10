@@ -1,207 +1,416 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <title>Document</title>
-    <style>
-        html {
-  height: 100%;
-}
-body {
-  margin:0;
-  padding:0;
-  font-family: sans-serif;
-  background: linear-gradient(#141e30, #243b55);
-}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="title icon" href="images/title-img.png">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+    integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 
-.login-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 400px;
-  padding: 40px;
-  transform: translate(-50%, -50%);
-  background: rgba(0,0,0,.5);
-  box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0,0,0,.6);
-  border-radius: 10px;
-}
-
-.login-box h2 {
-  margin: 0 0 30px;
-  padding: 0;
-  color: #fff;
-  text-align: center;
-}
-
-.login-box .user-box {
-  position: relative;
-}
-
-.login-box .user-box input {
-  width: 100%;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 30px;
-  border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  background: transparent;
-}
-.login-box .user-box label {
-  position: absolute;
-  top:0;
-  left: 0;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  pointer-events: none;
-  transition: .5s;
-}
-
-.login-box .user-box input:focus ~ label,
-.login-box .user-box input:valid ~ label {
-  top: -20px;
-  left: 0;
-  color: #03e9f4;
-  font-size: 12px;
-}
-
-.login-box form a {
-  position: relative;
-  display: inline-block;
-  padding: 10px 20px;
-  color: #03e9f4;
-  font-size: 16px;
-  text-decoration: none;
-  text-transform: uppercase;
-  overflow: hidden;
-  transition: .5s;
-  margin-top: 20px;
-  letter-spacing: 4px
-}
-
-.login-box a:hover {
-  background: #03e9f4;
-  color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 5px #03e9f4,
-              0 0 25px #03e9f4,
-              0 0 50px #03e9f4,
-              0 0 100px #03e9f4;
-}
-
-.login-box a span {
-  position: absolute;
-  display: block;
-}
-
-.login-box a span:nth-child(1) {
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #03e9f4);
-  animation: btn-anim1 1s linear infinite;
-}
-
-@keyframes btn-anim1 {
-  0% {
-    left: -100%;
-  }
-  50%,100% {
-    left: 100%;
-  }
-}
-
-.login-box a span:nth-child(2) {
-  top: -100%;
-  right: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, transparent, #03e9f4);
-  animation: btn-anim2 1s linear infinite;
-  animation-delay: .25s
-}
-
-@keyframes btn-anim2 {
-  0% {
-    top: -100%;
-  }
-  50%,100% {
-    top: 100%;
-  }
-}
-
-.login-box a span:nth-child(3) {
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(270deg, transparent, #03e9f4);
-  animation: btn-anim3 1s linear infinite;
-  animation-delay: .5s
-}
-
-@keyframes btn-anim3 {
-  0% {
-    right: -100%;
-  }
-  50%,100% {
-    right: 100%;
-  }
-}
-
-.login-box a span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #03e9f4);
-  animation: btn-anim4 1s linear infinite;
-  animation-delay: .75s
-}
-
-@keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-  50%,100% {
-    bottom: 100%;
-  }
-}
-
-    </style>
+  <title></title>
 </head>
+
 <body>
-    <!-- <form action="" method="POST">
-        {% csrf_token %}
-        <div class="container text-white mx-auto w-full max-w-xl mt-10 p-4 rounded-2xl">
-            <h1 class="text-2xl text-center font-bold mb-6">Connect with your Alumni</h1>
-          
-            <label for="serverSeed">Enter the Roll Number to connect</label>
-            <input type='text' class='w-full py-2 px-3 rounded-xl mt-1 mb-2' name="rollnumber" required>
-          
-            <input type="submit" class='bg-pink-600 hover:bg-pink-500 cursor-pointer text-center p-3 rounded-xl mt-3' name="submit" id="">
+  <!------Navbar---------->
+  <nav class="navbar navbar-expand-md navbar-light">
+    <button class="navbar-toggler ml-auto mb-2 bg-light" type="button" data-toggle="collapse" data-target="#myNavbar">
+      <span class="navbar-toggler-icon"></span>
+
+    </button>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <div class="container-fluid">
+        <div class="row">
+
+          <!------Sidebar---------->
+          <div class=" col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
+            <a href="#" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 bottom-border"></a>
+            <div class="bottom-border pb-3">
+              <img src="http://res.cloudinary.com/dfqddpjfl/image/upload/v1494008772/woman1_nr8qgi.jpg" width="50"
+                class="rounded-circle mr-3">
+              <a href="#" class="text-white">{{name}}</a>
+            </div>
+            <ul class="navbar-nav flex-column mt-4">
+              <li class="nav-item"><a href="{% url 'welcome' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-home text-light fa-lg mr-3"></i>Home</a></li>
+              <li class="nav-item"><a href="" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-user text-light fa-lg mr-3"></i>Alumni / Students Records</a></li>
+              <li class="nav-item"><a href="{% url 'notification_history' session_id %}"
+                  class="nav-link text-white p-2 mb-2"><i class="fas fa-envelope text-light fa-lg mr-3"></i>News and
+                  Events</a></li>
+              <li class="nav-item"><a href="{% url 'jobs' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-id-card text-light fa-lg mr-3"></i>Job Opportunities</a></li>
+              <li class="nav-item"><a href="{% url 'roll' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-envelope text-light fa-lg mr-3"></i>Message</a></li>
+              <li class="nav-item"><a href="{% url 'interview_exp' session_id %}"
+                  class="nav-link text-white p-2 mb-2"><i class="fas fa-user text-light fa-lg mr-3"></i>Interview
+                  Experience</a></li>
+              <li class="nav-item"><a href="{% url 'category' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-user text-light fa-lg mr-3"></i>Quiz</a></li>
+              <li class="nav-item"><a href="{% url 'update_profile' session_id %}"
+                  class="nav-link text-white p-2 mb-2"><i class="fas fa-id-card text-light fa-lg mr-3"></i>Update
+                  Profile</a></li>
+              <!-- <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i class="fas fa-file-alt text-light fa-lg mr-3"></i></a></li> -->
+            </ul>
           </div>
-        </form> -->
-        <div class="login-box">
-            <h2>AlumniHub Chat</h2>
-            <form action="" method="POST">
-                {% csrf_token %}
-              <div class="user-box">
-                <input type="text" name="rollnumber" required>
-                <label>Enter the Roll Number </label>
+          <!------End of Sidebar--->
+
+          <!------Top nav---------->
+          <div class=" col-xl-10 col-lg-9 col-md-8 ml-auto bg-dark fixed-top py-2 top-navbar">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <h4 class="text-light text-uppercase mb-0">Alumni Hub</h4>
               </div>
-              <a href="">
-              <input type="submit" class="btn btn-info" name="" id="">
-              </a>
-            </form>
+              <div class="col-md-5">
+
+
+              </div>
+              <div class="col-md-3">
+                <ul class="navbar-nav">
+                  <li class="nav-item ml-md-auto"><a href="#" class="nav-link" data-toggle="modal"
+                      data-target="#sign-out"><i class="fas fa-sign-out-alt text-danger fa-lg"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <div>
+            </div>
           </div>
+          <!------End of Top Nav--->
+        </div>
+  </nav>
+  <!------End of Navbar--->
+
+  <!------Modal--->
+  <div class="modal fade" id="sign-out">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Wat to sign out?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;
+
+          </button>
+        </div>
+        <div class="modal-body">
+          Log out
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Stay Here</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Log out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!------End of Modal--->
+
+  <!------Cards--->
+
+
+  <section>
+
+    <div class="container-fluid">
+      <div class="row mb-10">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+          <div class="row mb-10">
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+              <br>
+              <br>
+
+              <h3 class="chat-heading"><b>AlumniHub Chat</b></h3>
+              <form action="" method="POST">
+                {% csrf_token %}
+                <label for="">Enter the batch</label>
+                <input type="text" name="batch" id="">
+                <input type="submit" name="submit" id="submit-btn" value="SEARCH" class="btn">
+              </form>
+            </div>
+          </div>
+          <br>
+
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <!-- Content for the left column goes here -->
+                <table class="table">
+                  <tr>
+                    <th>Roll No</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Action</th>
+
+                  </tr>
+                  {% for j in users_list %}
+                  <tr>
+                    <td>{{j.roll}}</td>
+                    <td>{{j.firstname}}</td>
+                    <td>{{j.lastname}}</td>
+                    <td><a href="{% url 'room' session_id sender j.roll %}" class="btn btn-info"><i
+                          class="fas fa-paper-plane"></i> Message</a></td>
+
+                  </tr>
+
+                  {% endfor %}
+                </table>
+
+              </div>
+              <div class="col-md-6">
+                <center>
+                  <h4>CHATS</h4>
+                </center>
+                {% for i in hist %}
+                <center>
+
+                  <div class="col-lg-8">
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <div class="row">
+                          <img src="http://res.cloudinary.com/dfqddpjfl/image/upload/v1494008772/woman1_nr8qgi.jpg"
+                            width="50" class="rounded-circle mr-3">
+                          <div class="col-sm-6">
+                            {% if not i.room_id == sender %}
+                            <a href="{% url 'chat' session_id sender i.room_id %}">
+                              <p class="text-muted mb-0">{{i.room_id}}</p>
+                            </a>
+                            {% endif %}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </center>
+                {% endfor %}
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    </div>
+    </div>
+  </section>
+
+
+  <!------Pagination--->
+
+  <!------End of Footer--->
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script src="script.js"></script>
 </body>
+<style>
+  #submit-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #2dc2bd;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  }
+
+  #submit-btn:hover {
+    background-color: #2dc2bd;
+    transform: scale(1.1);
+  }
+
+  #submit-btn:focus {
+    outline: none;
+  }
+
+
+  label {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.2s ease-in-out;
+  }
+
+  input[type="text"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0px 0px 5px #4CAF50;
+  }
+
+  input[type="text"]:hover {
+    border-color: #999;
+  }
+
+
+
+  .chat-heading {
+    color: #33d6ff;
+    position: relative;
+    animation: slide 2s infinite;
+  }
+
+  .chat-heading:hover {
+    transform: rotate(-10deg);
+    transition: transform 0.5s ease-in-out;
+  }
+
+  @keyframes slide {
+    0% {
+      left: 0;
+    }
+
+    50% {
+      left: 20px;
+    }
+
+    100% {
+      left: 0;
+    }
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    /* background-color: rgb(255, 255, 255); */
+  }
+
+  /* Navbar */
+  .sidebar {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .9)), url(images/img1.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* box-shadow: 5px 7px 25px #999; */
+  }
+
+  .bottom-border {
+    border-bottom: 1px groove #eee;
+  }
+
+  .sidebar-link:hover {
+    background-color: #444;
+    border-radius: 5px;
+  }
+
+  .sidebar-link {
+    transition: all .4s;
+  }
+
+  .current {
+    background-color: #f44336;
+    border-radius: 7px;
+    box-shadow: 2px 5px 10px #111;
+    transition: all .3s;
+  }
+
+  .current:hover {
+    background-color: #f66436;
+    border-radius: 7px;
+    box-shadow: 2px 5px 20px #111;
+    transform: translate(-1px);
+  }
+
+  .search-input {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #999;
+    transition: all 0.4s;
+  }
+
+  .search-input:focus {
+    background: transparent;
+    box-shadow: none;
+    border-bottom: 2px solid #dc3545;
+  }
+
+  .search-button {
+    border-radius: 50%;
+    padding: 10px 16px;
+    transition: all .4s;
+  }
+
+  .search-button:hover {
+    background-color: #eee;
+    transform: translate(-1px);
+  }
+
+  .icon-parent {
+    position: relative;
+  }
+
+  .icon-bullet ::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 15px;
+    height: 12px;
+    width: 12px;
+    background-color: #f44336;
+    border-radius: 50%;
+  }
+
+  @media(max-width: 768px) {
+    .sidebar {
+      position: static;
+      height: auto;
+    }
+
+    .top-navbar {
+      position: static;
+    }
+  }
+
+  /* End of Navbar */
+
+  /* Cards */
+  .card-common {
+    box-shadow: 1px 2px 5px #999;
+    transition: all .4s;
+  }
+
+  .card-common:hover {
+    box-shadow: 2px 3px 15px #999;
+    transform: translateY(-1px);
+
+  }
+
+  /* End of Cards */
+
+  /* Task-list */
+  .task-border {
+    border-left: 3px solid #f66346
+  }
+
+  /* End of Task-list */
+</style>
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
+
+
 </html>

@@ -35,8 +35,8 @@
           <div class=" col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
             <a href="#" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 bottom-border"></a>
             <div class="bottom-border pb-3">
-              <img src="http://res.cloudinary.com/dfqddpjfl/image/upload/v1494008772/woman1_nr8qgi.jpg" width="50"
-                class="rounded-circle mr-3">
+              <!-- <img src="http://res.cloudinary.com/dfqddpjfl/image/upload/v1494008772/woman1_nr8qgi.jpg" width="50"
+                class="rounded-circle mr-3"> -->
               <a href="#" class="text-white"></a>
             </div>
             <ul class="navbar-nav flex-column mt-4">
@@ -46,19 +46,20 @@
                     class="fas fa-user text-light fa-lg mr-3"></i>Students List</a></li>
               <li class="nav-item"><a href="{% url 'alumni_notification' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-envelope text-light fa-lg mr-3"></i>News and Events</a></li>
-              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+              <li class="nav-item"><a href="{% url 'job_post' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-id-card text-light fa-lg mr-3"></i>Job Opportunities</a></li>
               <li class="nav-item"><a href="{% url 'roll' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-envelope text-light fa-lg mr-3"></i>Message</a></li>
-              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+              <li class="nav-item"><a href="{% url 'a_company_submit' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-user text-light fa-lg mr-3"></i>Interview Experience</a></li>
+                    <li class="nav-item"><a href="{% url 'category_a' session_id %}" class="nav-link text-white p-2 mb-2"><i 
+                      class="fas fa-user text-light fa-lg mr-3"></i>Quiz</a></li>
               <li class="nav-item"><a href="{% url 'alumni_profileset' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-user text-light fa-lg mr-3"></i>Create Profile</a></li>
               <li class="nav-item"><a href="{% url 'alumni_updateprofile' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-id-card text-light fa-lg mr-3"></i>Update Profile</a></li>
               
-              <!-- <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i class="fas fa-file-alt text-light fa-lg mr-3"></i></a></li> -->
-            </ul>
+             </ul>
           </div>
           <!------End of Sidebar--->
 

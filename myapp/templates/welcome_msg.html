@@ -5,6 +5,33 @@
 {% endif %}
 <!doctype html>
 <html lang="en">
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDVXhouxFLB3wvUrXzkYS0lasnppSijJjU",
+      authDomain: "myfirst-f209c.firebaseapp.com",
+      databaseURL: "https://myfirst-f209c-default-rtdb.firebaseio.com",
+      projectId: "myfirst-f209c",
+      storageBucket: "myfirst-f209c.appspot.com",
+      messagingSenderId: "1083995112715",
+      appId: "1:1083995112715:web:4d8b25edd10e5d2a024e0e",
+      measurementId: "G-FJ3CW3KRMS"
+    };
+  
+    // Initialize Firebase
+    
+    firebase.initializeApp(firebaseConfig);
+
+// Get a reference to the Firebase Realtime Database
+    var database = firebase.database();
+  </script>
 
 <head>
   <meta charset="utf-8">
@@ -16,8 +43,79 @@
     integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  
+
 
   <title></title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    
+    var sessionTimeout = 20000 // 20 seconds in milliseconds
+    var lastActivity = new Date().getTime();
+    console.log(lastActivity)
+
+
+    // Check for inactivity every second
+    var interval = setInterval(function () {
+      var currentTime = new Date().getTime();
+      console.log(currentTime)
+      var elapsedTime = currentTime - lastActivity;
+      console.log(elapsedTime)
+      if (elapsedTime > sessionTimeout) {
+        alert("Your session has expired. Please log in again.")
+        window.location.href = "/logout"; // Redirect to the logout URL
+      }
+    }, 1000);
+
+    // Update last activity timestamp on user interaction
+    $(document).on('mousemove click scroll keydown', function () {
+      lastActivity = new Date().getTime();
+    });
+
+    // Handle window unload event to store last activity timestamp
+    window.onbeforeunload = function () {
+      var lastloggedin= new Date().getTime();
+      window.location.href = "/logout";
+      fetch("http://localhost:8000/logout").then(res=>{console.log(res)}).catch(err=>{console.log(err)})
+      clearInterval(interval)
+      return "are u sure";
+
+    };
+  window.addEventListener("unload", () => {
+  alert("CLOSING WINDOW");
+  localStorage.setItem('time', new Date().getTime());
+
+  // Make a POST request to the logout view using AJAX
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/logout/");
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+  xhr.onload = () => {
+    // Handle the response from the server
+    if (xhr.status === 200) {
+      // Redirect the user to the login page
+      window.location.href = "/login/";
+    } else {
+      console.error("Logout failed:", xhr.statusText);
+    }
+  };
+  xhr.send(JSON.stringify({}));
+});
+
+
+    // Check for last activity timestamp on page load
+    // $(function () {
+    //   var lastActivityTime = localStorage.getItem('lastActivity');
+    //   if (lastActivityTime) {
+    //     lastActivity = new Date(parseInt(lastActivityTime));
+    //   }
+    // });
+
+
+
+
+  </script>
 </head>
 
 <body>
@@ -35,26 +133,27 @@
           <div class=" col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
             <a href="#" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 bottom-border"></a>
             <div class="bottom-border pb-3">
-              <img src="http://res.cloudinary.com/dfqddpjfl/image/upload/v1494008772/woman1_nr8qgi.jpg" width="50"
-                class="rounded-circle mr-3">
+              <!-- <img src="http://res.cloudinary.com/dfqddpjfl/image/upload/v1494008772/woman1_nr8qgi.jpg" width="50" -->
+              <!-- class="rounded-circle mr-3"> -->
               <a href="#" class="text-white">{{name}}</a>
             </div>
             <ul class="navbar-nav flex-column mt-4">
               <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-home text-light fa-lg mr-3"></i>Home</a></li>
               <li class="nav-item"><a href="{% url 'alumni_list' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                    class="fas fa-user text-light fa-lg mr-3"></i>Alumni List</a></li>
+                    class="fas fa-user text-light fa-lg mr-3"></i>Alumni / Students Records</a></li>
               <li class="nav-item"><a href="{% url 'notification_history' session_id %}"
                   class="nav-link text-white p-2 mb-2"><i class="fas fa-envelope text-light fa-lg mr-3"></i>News and
                   Events</a></li>
-              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+              <li class="nav-item"><a href="{% url 'jobs' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-id-card text-light fa-lg mr-3"></i>Job Opportunities</a></li>
               <li class="nav-item"><a href="{% url 'roll' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-envelope text-light fa-lg mr-3"></i>Message</a></li>
-              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i 
-                    class="fas fa-user text-light fa-lg mr-3"></i>Interview Experience</a></li>
-              <li class="nav-item"><a href="{% url 'profile' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                    class="fas fa-user text-light fa-lg mr-3"></i>Create Profile</a></li>
+              <li class="nav-item"><a href="{% url 'interview_exp' session_id %}"
+                  class="nav-link text-white p-2 mb-2"><i class="fas fa-user text-light fa-lg mr-3"></i>Interview
+                  Experience</a></li>
+              <li class="nav-item"><a href="{% url 'category' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-user text-light fa-lg mr-3"></i>Quiz</a></li>
               <li class="nav-item"><a href="{% url 'update_profile' session_id %}"
                   class="nav-link text-white p-2 mb-2"><i class="fas fa-id-card text-light fa-lg mr-3"></i>Update
                   Profile</a></li>
@@ -112,13 +211,98 @@
   <!------End of Modal--->
 
   <!------Cards--->
+  <div class="container-fluid">
+    <div class="row mb-10">
+      <div class="col-xl-12 col-lg-9 col-md-8 ml-auto">
+        <div class="row">
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+            <br>
+            <br>
+
+            <h3 class="text-muted text-center mb-3">Top 10 Creds</h3>
+
+            <table class="table">
+
+              <tr>
+                <th></th>
+                <th>Roll Number</th>
+                <th>Name</th>
+                <th>Creds</th>
+
+              </tr>
+              {% for j in points_list %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <th>{{j.roll}}</th>
+                <td>{{j.name}}</td>
+                <td>{{j.points}}</td>
+              </tr>
+
+              {% endfor %}
+            </table>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <!------Pagination--->
 
   <!------End of Footer--->
 
+  <style>
+    /* Define the fade-in animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
 
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Apply the fade-in animation to table rows */
+    table tr {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .table-container {
+      opacity: 0;
+      transform: translateX(-100%);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+
+    .table-container.show {
+      opacity: 1;
+      transform: none;
+    }
+
+    table {
+      background: linear-gradient(to bottom, #343a40, #1d2124);
+      color: #f8f9fa;
+    }
+
+    /* Style the table header */
+    th {
+      background-color: #adb5bd;
+      color: #212529;
+    }
+
+    /* Style the table rows */
+    tr {
+      background-color: #6c757d;
+    }
+  </style>
+  <script>
+    window.onload = function () {
+      document.querySelector('.table-container').classList.add('show');
+    }
+  </script>
 
 
 

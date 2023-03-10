@@ -38,18 +38,18 @@
             <ul class="navbar-nav flex-column mt-4">
               <li class="nav-item"><a href="{% url 'welcome' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-home text-light fa-lg mr-3"></i>Home</a></li>
-              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
-                    class="fas fa-user text-light fa-lg mr-3"></i>Alumni List</a></li>
+              <li class="nav-item"><a href="{% url 'alumni_list' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-user text-light fa-lg mr-3"></i>Alumni / Students Records</a></li>
               <li class="nav-item"><a href="{% url 'notification_history' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-envelope text-light fa-lg mr-3"></i>News and Events</a></li>
-              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+              <li class="nav-item"><a href="{% url 'jobs' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-id-card text-light fa-lg mr-3"></i>Job Opportunities</a></li>
-              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+              <li class="nav-item"><a href="{% url 'roll' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-envelope text-light fa-lg mr-3"></i>Message</a></li>
-              <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i
+              <li class="nav-item"><a href="{% url 'interview_exp' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-user text-light fa-lg mr-3"></i>Interview Experience</a></li>
-              <li class="nav-item"><a href="{% url 'profile' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                    class="fas fa-user text-light fa-lg mr-3"></i>Create Profile</a></li>
+                    <li class="nav-item"><a href="{% url 'category' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                      class="fas fa-user text-light fa-lg mr-3"></i>Quiz</a></li>
               <li class="nav-item"><a href="{% url 'update_profile' session_id %}" class="nav-link text-white p-2 mb-2"><i
                     class="fas fa-id-card text-light fa-lg mr-3"></i>Update Profile</a></li>
               
@@ -106,7 +106,9 @@
   <!------End of Modal--->
 
   <!------Cards--->
-  
+  <style>
+   
+  </style>
 
   <section>
 
@@ -114,8 +116,12 @@
       <div class="row mb-10">
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
           <div class="row">
-            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-              <h3 class="text-muted text-center mb-3">Alumni List</h3>
+            <div class="col-xl-12 col-lg-9 col-md-8 ml-auto">
+              
+              <div class="for">
+                <br>
+              <br>
+              <h3 class="text-muted text-center mb-3">Update Profile</h3>
               <form action="" method="POST">
                 {% csrf_token %}
                 <div class="form-row">
@@ -148,7 +154,7 @@
                 </div>
                 <div class="form-group">
                     <label for="rollnumber">Personal Email</label>
-                    <input type="email" class="form-control" name="pemail" value="{{details.pmeail}}">
+                    <input type="text" class="form-control" name="pemail" value="{{details.pmeail}}">
                 </div>
                 <div class="
             form-group">
@@ -165,7 +171,7 @@
 
 
             </form>
-
+            </div>
               
           </div>
         </div>
