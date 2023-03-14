@@ -59,8 +59,19 @@ class UserCategoryAttempts(models.Model):
 
     class Meta:
         verbose_name_plural='User Attempts Category '
+
+
+class UserImage(models.Model):
+    user_id=models.CharField(max_length=200,null=True)
+    image = models.ImageField(upload_to='images/')
     
-    
+    @property
+    def imageURL(self):
+        try:
+            url=self.image.url
+        except:
+            url=''
+        return url
 
 
 

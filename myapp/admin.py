@@ -21,3 +21,6 @@ admin.site.register(UserSubmittedAnswer,UserSubmittedAnswerAdmin)
 admin.site.register(UserCategoryAttempts)
 
 
+admin.site.register(UserImage)
+
+

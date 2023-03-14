@@ -14,6 +14,62 @@
   <link rel="stylesheet" href="style.css">
 
   <title></title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    
+    var sessionTimeout = 600000 // 20 seconds in milliseconds
+    var lastActivity = new Date().getTime();
+    console.log(lastActivity)
+
+
+    // Check for inactivity every second
+    var interval = setInterval(function () {
+      var currentTime = new Date().getTime();
+      console.log(currentTime)
+      var elapsedTime = currentTime - lastActivity;
+      console.log(elapsedTime)
+      if (elapsedTime > sessionTimeout) {
+        alert("Your session has expired. Please log in again.")
+        window.location.href = "/logout"; // Redirect to the logout URL
+      }
+    }, 1000);
+
+    // Update last activity timestamp on user interaction
+    $(document).on('mousemove click scroll keydown', function () {
+      lastActivity = new Date().getTime();
+    });
+
+    // Handle window unload event to store last activity timestamp
+    window.onbeforeunload = function () {
+      var lastloggedin= new Date().getTime();
+      window.location.href = "/logout";
+      fetch("http://localhost:8000/logout").then(res=>{console.log(res)}).catch(err=>{console.log(err)})
+      clearInterval(interval)
+      return "are u sure";
+
+    };
+  window.addEventListener("unload", () => {
+  alert("CLOSING WINDOW");
+  
+
+  // Make a POST request to the logout view using AJAX
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/logout/");
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+  xhr.onload = () => {
+    // Handle the response from the server
+    if (xhr.status === 200) {
+      // Redirect the user to the login page
+      window.location.href = "/login/";
+    } else {
+      console.error("Logout failed:", xhr.statusText);
+    }
+  };
+  xhr.send(JSON.stringify({}));
+});
+</script>
 </head>
 
 <body>
@@ -51,7 +107,7 @@
                     <li class="nav-item"><a href="{% url 'category' session_id %}" class="nav-link text-white p-2 mb-2"><i
                       class="fas fa-user text-light fa-lg mr-3"></i>Quiz</a></li>
               <li class="nav-item"><a href="{% url 'update_profile' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                    class="fas fa-id-card text-light fa-lg mr-3"></i>Update Profile</a></li>
+                    class="fas fa-id-card text-light fa-lg mr-3"></i>My Profile</a></li>
               
               <!-- <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i class="fas fa-file-alt text-light fa-lg mr-3"></i></a></li> -->
             </ul>
@@ -113,69 +169,107 @@
   <section>
 
     <div class="container-fluid">
-      <div class="row mb-10">
+      <div class="row mb-8">
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
           <div class="row">
-            <div class="col-xl-12 col-lg-9 col-md-8 ml-auto">
-              
-              <div class="for">
-                <br>
+            <div class="col-xl-15 col-lg-12 col-md-20 ml-auto">
               <br>
-              <h3 class="text-muted text-center mb-3">Update Profile</h3>
-              <form action="" method="POST">
-                {% csrf_token %}
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="firstname">First Name</label>
-                        <input type="text" class="form-control" name="firstname" value="{{details.firstname}}">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputPassword4">Last Name</label>
-                        <input type="text" class="form-control" name="lastname" value="{{details.lastname}}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="batch"><b>Batch</b></label>
-                    <input type="text" class="form-control" name="batch" value="{{details.batch}}">
-                </div>
-            
-                </script>
-                <div class="form-group">
-                    <label for="rollnumber">Roll Number</label>
-                    <input type="text" class="form-control" name="rollnumber" value="{{details.roll}}">
-                </div>
-                <div class="form-group">
-                    <label for="department">Department</label>
-                    <input type="text" class="form-control" name="department" value="{{details.department}}">
-                </div>
-                <div class="form-group">
-                    <label for="rollnumber">Official Email</label>
-                    <input type="email" class="form-control" name="oemail" value="{{details.oemail}}">
-                </div>
-                <div class="form-group">
-                    <label for="rollnumber">Personal Email</label>
-                    <input type="text" class="form-control" name="pemail" value="{{details.pmeail}}">
-                </div>
-                <div class="
-            form-group">
-                    <label for="tel">Phone</label>
-                    <input type="tel" name="phone" class="form-control" name="phone" value="{{details.phone}}"
-                        required>
-                </div>
-                <div class="form-group">
-                    <label for="workingat"><b>Working At (Mention as NA if not applicable)</b></label>
-                    <input type="text" value="{{details.workingat}}" class="form-control" name="workingat" placeholder="Woriking At">
-                </div>
-                <input type="submit" class="btn btn-primary" name="Update" id="">
-
-
-
-            </form>
+              <br>
+              <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                <ol class="breadcrumb mb-0">
+                  
+                  <a href="" class="btn btn-primary float-end">Edit Profile</a>
+                </ol>
+              </nav>
             </div>
-              
+          </div>
+  
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="card mb-4">
+                <div class="card-body text-center">
+                  <img src="{{image.image.url}}" alt="avatar"
+                    class="rounded-circle img-fluid" style="width: 150px;">
+                  <h5 class="my-3"></h5>
+                  <p class="text-muted mb-1"><b>{{details.roll}}</b></p>
+                  <p class="text-muted mb-4"><b>{{details.firstname}} {{details.lastname}}</b></p>
+                  <p class="text-muted mb-4"> </p>
+                  <div class="d-flex justify-content-center mb-2">
+  
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+            <div class="col-lg-8">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="row">
+  
+                    <div class="col-sm-3">
+                      <p class="mb-0">Working At</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{details.workingAt}}</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Designation</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{details.Designation}}</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Batch</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{details.batch}}</p>
+                    </div>
+                  </div>
+                <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Official Email</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{details.oemail}}</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <center><h3><u>Personal Information</u></h3></center>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Personal Email</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{details.pemail}}</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Phone</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{details.phone}}</p>
+                    </div>
+                  </div>
+                  <hr>
+  
+                </div>
+  
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+    </div>
     </div>
   </section>
         

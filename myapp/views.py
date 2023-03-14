@@ -15,6 +15,7 @@ import datetime
 
 
 
+
 # Create your views here.
 config = {
     'apiKey': "AIzaSyDVXhouxFLB3wvUrXzkYS0lasnppSijJjU",
@@ -138,6 +139,7 @@ def welcome(request,session_id):
     return render(request,"welcome_msg.html",context)
 
 def update_profile(request,session_id):
+
     result=database.child("users").child(session_id).child("details").get().val()
     if result is None:
         message="Profile does not exist!"
@@ -160,7 +162,9 @@ def update_profile(request,session_id):
             data={'firstname':firstname,'roll':roll,'lastname':lastname,'phone':phone,'batch':batch,'pmeail':pemail,'oemail':oemail,'department':department,'role':"student",'workingat':workingat}
             database.child("users").child(session_id).child("details").set(data)
 
-    context={'session_id':session_id,'details':result}
+    image=UserImage.objects.get(user_id=session_id)
+    print(image)
+    context={'session_id':session_id,'details':result,'image':image}
     return render(request,"update_profile.html",context)
 
 def alumnilist(request,session_id):
@@ -408,7 +412,7 @@ def company_submit(request,session_id):
             if res[i]["details"]['company'] == company:
                 int_exp_list.append(res[i]["details"])
     print(int_exp_list)
-
+    print(co_list)
 
     return render(request,"company.html",{'session_id':session_id,'company_list':co_list,'int_exp_list':int_exp_list})
 

@@ -11,7 +11,60 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-2Q9Xix+RZ2tWFX7V4P+XP/sA7VunfuHlW1hVLlS9d9+7VZC0Plm8zLy+uc3TJ3d46aTmNJ0JDa+7O9JhQ0R7xQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <script>
+  
+      var sessionTimeout = 20000 // 20 seconds in milliseconds
+      var lastActivity = new Date().getTime();
+      console.log(lastActivity)
+    
+    
+      // Check for inactivity every second
+      var interval = setInterval(function () {
+        var currentTime = new Date().getTime();
+        console.log(currentTime)
+        var elapsedTime = currentTime - lastActivity;
+        console.log(elapsedTime)
+        if (elapsedTime > sessionTimeout) {
+          alert("Your session has expired. Please log in again.")
+          window.location.href = "/logout"; // Redirect to the logout URL
+        }
+      }, 1000);
+    
+      // Update last activity timestamp on user interaction
+      $(document).on('mousemove click scroll keydown', function () {
+        lastActivity = new Date().getTime();
+      });
+    
+      // Handle window unload event to store last activity timestamp
+      window.onbeforeunload = function () {
+        var lastloggedin= new Date().getTime();
+        window.location.href = "/logout";
+        fetch("http://localhost:8000/logout").then(res=>{console.log(res)}).catch(err=>{console.log(err)})
+        clearInterval(interval)
+        return "are u sure";
+    
+      };
+    window.addEventListener("unload", () => {
+    alert("CLOSING WINDOW");
+    localStorage.setItem('time', new Date().getTime());
+    
+    // Make a POST request to the logout view using AJAX
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/logout/");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+    xhr.onload = () => {
+      // Handle the response from the server
+      if (xhr.status === 200) {
+        // Redirect the user to the login page
+        window.location.href = "/login/";
+      } else {
+        console.error("Logout failed:", xhr.statusText);
+      }
+    };
+    xhr.send(JSON.stringify({}));
+    });
+    </script>
   <style>
     /* custom styles for the chat application */
     body{

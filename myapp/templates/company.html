@@ -18,6 +18,62 @@
   <link rel="stylesheet" href="style.css">
 
   <title></title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+
+    var sessionTimeout = 20000 // 20 seconds in milliseconds
+    var lastActivity = new Date().getTime();
+    console.log(lastActivity)
+
+
+    // Check for inactivity every second
+    var interval = setInterval(function () {
+      var currentTime = new Date().getTime();
+      console.log(currentTime)
+      var elapsedTime = currentTime - lastActivity;
+      console.log(elapsedTime)
+      if (elapsedTime > sessionTimeout) {
+        alert("Your session has expired. Please log in again.")
+        window.location.href = "/logout"; // Redirect to the logout URL
+      }
+    }, 1000);
+
+    // Update last activity timestamp on user interaction
+    $(document).on('mousemove click scroll keydown', function () {
+      lastActivity = new Date().getTime();
+    });
+
+    // Handle window unload event to store last activity timestamp
+    window.onbeforeunload = function () {
+      var lastloggedin = new Date().getTime();
+      window.location.href = "/logout";
+      fetch("http://localhost:8000/logout").then(res => { console.log(res) }).catch(err => { console.log(err) })
+      clearInterval(interval)
+      return "are u sure";
+
+    };
+    window.addEventListener("unload", () => {
+      alert("CLOSING WINDOW");
+      
+
+      // Make a POST request to the logout view using AJAX
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "/logout/");
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+      xhr.onload = () => {
+        // Handle the response from the server
+        if (xhr.status === 200) {
+          // Redirect the user to the login page
+          window.location.href = "/login/";
+        } else {
+          console.error("Logout failed:", xhr.statusText);
+        }
+      };
+      xhr.send(JSON.stringify({}));
+    });
+  </script>
 </head>
 
 <body>
@@ -41,21 +97,24 @@
             </div>
             <ul class="navbar-nav flex-column mt-4">
               <li class="nav-item"><a href="{% url 'welcome' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                class="fas fa-home text-light fa-lg mr-3"></i>Home</a></li>
-          <li class="nav-item"><a href="{% url 'alumni_list' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                class="fas fa-user text-light fa-lg mr-3"></i>Alumni / Students Records</a></li>
-          <li class="nav-item"><a href="{% url 'notification_history' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                class="fas fa-envelope text-light fa-lg mr-3"></i>News and Events</a></li>
-          <li class="nav-item"><a href="{% url 'jobs' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                class="fas fa-id-card text-light fa-lg mr-3"></i>Job Opportunities</a></li>
-          <li class="nav-item"><a href="{% url 'roll' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                class="fas fa-envelope text-light fa-lg mr-3"></i>Message</a></li>
-          <li class="nav-item"><a href="{% url 'interview_exp' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                class="fas fa-user text-light fa-lg mr-3"></i>Interview Experience</a></li>
-                <li class="nav-item"><a href="{% url 'category' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                  class="fas fa-user text-light fa-lg mr-3"></i>Quiz</a></li>
-          <li class="nav-item"><a href="{% url 'update_profile' session_id %}" class="nav-link text-white p-2 mb-2"><i
-                class="fas fa-id-card text-light fa-lg mr-3"></i>Update Profile</a></li>
+                    class="fas fa-home text-light fa-lg mr-3"></i>Home</a></li>
+              <li class="nav-item"><a href="{% url 'alumni_list' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-user text-light fa-lg mr-3"></i>Alumni / Students Records</a></li>
+              <li class="nav-item"><a href="{% url 'notification_history' session_id %}"
+                  class="nav-link text-white p-2 mb-2"><i class="fas fa-envelope text-light fa-lg mr-3"></i>News and
+                  Events</a></li>
+              <li class="nav-item"><a href="{% url 'jobs' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-id-card text-light fa-lg mr-3"></i>Job Opportunities</a></li>
+              <li class="nav-item"><a href="{% url 'roll' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-envelope text-light fa-lg mr-3"></i>Message</a></li>
+              <li class="nav-item"><a href="{% url 'interview_exp' session_id %}"
+                  class="nav-link text-white p-2 mb-2"><i class="fas fa-user text-light fa-lg mr-3"></i>Interview
+                  Experience</a></li>
+              <li class="nav-item"><a href="{% url 'category' session_id %}" class="nav-link text-white p-2 mb-2"><i
+                    class="fas fa-user text-light fa-lg mr-3"></i>Quiz</a></li>
+              <li class="nav-item"><a href="{% url 'update_profile' session_id %}"
+                  class="nav-link text-white p-2 mb-2"><i class="fas fa-id-card text-light fa-lg mr-3"></i>Update
+                  Profile</a></li>
               <!-- <li class="nav-item"><a href="#" class="nav-link text-white p-2 mb-2"><i class="fas fa-file-alt text-light fa-lg mr-3"></i></a></li> -->
             </ul>
           </div>
@@ -125,12 +184,37 @@
               <form action="" method="POST">
                 {% csrf_token %}
                 <div class="form-group col-md-6">
-                  <label for="">Selet te company</label>
+                  <label for="">Select company</label>
                   <select name="company" class="form-control form-control-sm" id="">
-                    <option value="">--select--</option>
-                    {% for i in company_list %}
-                    <option value="{{i}}">{{i}}</option>
-                    {% endfor %}
+                    <option value="">--------------</option>
+                    <option value="ACCENTURE">ACCENTURE</option>
+                    <option value="Caterpillar India, Chennai">Caterpillar India, Chennai</option>
+                    <option value="CITI INDIA, Mumbai">CITI INDIA, Mumbai</option>
+                    <option value="Citi India, Mumbai">Citi India, Mumbai</option>
+                    <option value="Cisco">Cisco</option>
+                    <option value="Computer Vision Technology">Computer Vision Technology</option>
+                    <option value="ConstructN">ConstructN</option>
+                    <option value="Deloitte">Deloitte</option>
+                    <option value="Ford">Ford</option>
+                    <option value="IBM">IBM</option>
+                    <option value="Infibeam Avenues Bangalore">Infibeam Avenues Bangalore</option>
+                    <option value="Incture Technologies,Bangalore.">Incture Technologies,Bangalore.</option>
+                    <option value="Incture Technologies, Bangalore">Incture Technologies, Bangalore</option>
+                    <option value="Intellifer System">Intellifer System</option>
+                    <option value="Jungroo">Jungroo</option>
+                    <option value="LatentView Analytics">LatentView Analytics</option>
+                    <option value="LTI Mindtree">LTI Mindtree</option>
+                    <option value="Morgan Staley">Morgan Staley</option>
+                    <option value="Mobicip">Mobicip</option>
+                    <option value="PSG Software Technologies">PSG Software Technologies</option>
+                    <option value="SeyGen">SeyGen</option>
+                    <option value="Societe Generale">Societe Generale</option>
+                    <option value="Softworth Solutions">Softworth Solutions</option>
+                    <option value="VISA">VISA</option>
+                    <option value="ZF-WABCO">ZF-WABCO</option>
+                    <option value="zoho">zoho</option>
+
+
                   </select>
                   <br>
                   <input type="submit" name="submit" id="" value="SEARCH" class="btn btn-success float-right">
@@ -175,11 +259,12 @@
                   animation-delay: 0.3s;
                   animation-fill-mode: forwards;
                 }
-              
+
                 @keyframes fadeIn {
                   from {
                     opacity: 0;
                   }
+
                   to {
                     opacity: 1;
                   }
@@ -199,9 +284,9 @@
 
                   exp.classList.add('animated');
 
-                  close.addEventListener('click',function (){
-                    exp.style.display='none'
-                    companies.style.display='block'
+                  close.addEventListener('click', function () {
+                    exp.style.display = 'none'
+                    companies.style.display = 'block'
 
                   });
 

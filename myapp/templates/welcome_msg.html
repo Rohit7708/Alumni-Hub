@@ -51,7 +51,7 @@
 
   <script>
     
-    var sessionTimeout = 20000 // 20 seconds in milliseconds
+    var sessionTimeout = 600000 // 20 seconds in milliseconds
     var lastActivity = new Date().getTime();
     console.log(lastActivity)
 
@@ -84,7 +84,7 @@
     };
   window.addEventListener("unload", () => {
   alert("CLOSING WINDOW");
-  localStorage.setItem('time', new Date().getTime());
+  
 
   // Make a POST request to the logout view using AJAX
   const xhr = new XMLHttpRequest();

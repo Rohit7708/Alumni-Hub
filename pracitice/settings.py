@@ -55,6 +55,7 @@ MIDDLEWARE = [
     
 ]
 
+
 ROOT_URLCONF = 'pracitice.urls'
 
 TEMPLATES = [
@@ -142,5 +143,6 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_CACHE_ALIAS = 'default'
 
 
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 

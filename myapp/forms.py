@@ -9,3 +9,11 @@ class ChatMessageForm(ModelForm):
     class Meta:
         model = Message
         fields = ["body",]
+
+
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = UserImage
+        fields = ['image','user_id']
+
+        enctype='multipart/form-data'
